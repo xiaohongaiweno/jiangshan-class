@@ -1,6 +1,6 @@
 window.EN_LOCALE = {
   "strings": {
-    "title": "Chronicles of the Realm · Historical Atlas of China",
+    "title": "Chronicles of the Realm, Classroom Edition · Historical Atlas of China",
     "brand_seal": "江山时序",
     "brand_sub": "Classroom Edition · Atlas of China · 403 BCE → Present",
     "btn_layers": "Layers",

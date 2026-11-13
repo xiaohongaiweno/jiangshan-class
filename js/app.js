@@ -5367,22 +5367,22 @@
       const isEn = this.locale === 'en';
       const cur = this.dynasties && this.dynasties[this.dynastyIdx];
       let pageTitle = isEn
-        ? this.uiStr('title', 'Jiangshan Atlas · Interactive Historical Atlas of China (403 BCE – Present)')
-        : '江山时序 · 中国历史地图时间轴（战国至现代历代疆域、州郡政区与古今地名沿革）';
+        ? this.uiStr('title', 'Jiangshan Atlas, Classroom Edition · Interactive Historical Atlas of China (403 BCE – Present)')
+        : '江山时序（教学版） · 中国历史课堂交互舆图（战国至现代疆域沿革与教材同步课件）';
       let pageDesc = isEn
-        ? 'Explore 2,400+ years of Chinese history from the Warring States (403 BCE) to the present across 18 eras, 185 multi-stage territory snapshots, 471 milestones, 571 city landmarks, 20 strategic passes, and 113+ person chronicles.'
-        : '交互式中国历史地图时间轴（公元前403年战国三家分晋至现代）：浏览18个朝代、185幅多阶段历史疆域与州道政区快照、471条编年大事、571处城池地标、20座天下名关与百余位青史人物行迹。';
+        ? 'Classroom Edition of the Jiangshan Atlas: 86 textbook-aligned lesson decks, a 688-question quiz bank, a China–world comparison timeline, and 2,400+ years of interactive Chinese history from the Warring States (403 BCE) to the present — territories, administrative divisions, city gazetteer, strategic passes, and person chronicles.'
+        : '江山时序（教学版）：面向初中历史课堂的交互式中国历史舆图。86 课课件与统编版教材逐课对应、688 题课堂快测题池、中西对照时间轴；舆图覆盖公元前403年战国三家分晋至现代共 18 个时期的多阶段疆域、州郡政区、历代古城古今地名对照、天下名关与历史人物行迹。';
       let canonicalUrl = baseSiteUrl;
 
       if (this.activePerson) {
         const p = this.activePerson.profile;
         const pName = isEn ? p.en : p.zh;
         pageTitle = isEn
-          ? `${pName} — Historical Events Map · Jiangshan Atlas of China`
-          : `${pName}生平纪事地图 · 江山时序中国历史地图`;
+          ? `${pName} — Historical Events Map · Jiangshan Atlas (Classroom Edition)`
+          : `${pName}生平纪事地图 · 江山时序（教学版）`;
         pageDesc = isEn
-          ? `Interactive spatio-temporal chronicle of ${pName} across ${this.activePerson.events.length} historical sites in the Jiangshan Atlas of China.`
-          : `${pName}生平 ${this.activePerson.events.length} 处历史事件时空落点、历代疆域与古今地名对照。`;
+          ? `Interactive spatio-temporal chronicle of ${pName} across ${this.activePerson.events.length} historical sites in the Jiangshan Atlas, Classroom Edition.`
+          : `${pName}生平 ${this.activePerson.events.length} 处历史事件时空落点、历代疆域与古今地名对照（江山时序教学版）。`;
         canonicalUrl = `${baseSiteUrl}?person=${encodeURIComponent(p.key)}${isEn ? '&lang=en' : ''}`;
       } else if (cur && this._bootDone) {
         const dName = this.dynastyName(cur);
@@ -5390,8 +5390,8 @@
         const dSeat = this.dynastySeat(cur);
         const dSum = this.dynastySummary(cur);
         pageTitle = isEn
-          ? `${dName} (${dSpan}) Map · Jiangshan Historical Atlas of China`
-          : `${dName}历史地图（${dSpan}）疆域政区与古今地名 · 江山时序`;
+          ? `${dName} (${dSpan}) Map · Jiangshan Historical Atlas, Classroom Edition`
+          : `${dName}历史地图（${dSpan}）疆域政区与古今地名 · 江山时序（教学版）`;
         pageDesc = isEn
           ? `${dName} (${dSpan}) historical territory, administrative divisions & cities. Capital: ${dSeat}. ${dSum}`
           : `${dName}（${dSpan}）历史疆域与州郡政区地图。都城：${dSeat}。${dSum}`;
