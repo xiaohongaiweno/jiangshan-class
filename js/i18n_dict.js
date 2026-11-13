@@ -2,7 +2,7 @@ window.EN_LOCALE = {
   "strings": {
     "title": "Chronicles of the Realm · Historical Atlas of China",
     "brand_seal": "江山时序",
-    "brand_sub": "Atlas of China · 403 BCE → Present",
+    "brand_sub": "Classroom Edition · Atlas of China · 403 BCE → Present",
     "btn_layers": "Layers",
     "layer_grp_hist": "Historical Atlas Layers",
     "layer_grp_mod": "Terrain & Modern Reference",
@@ -2216,6 +2216,22 @@ window.EN_LOCALE = {
     "zhenghe": [
       "Zheng He's Voyages",
       "Seven expeditions (1405–1433) from Nanjing and Taicang across the Indian Ocean to East Africa."
+    ],
+    "changzheng": [
+      "Long March Route",
+      "In October 1934 the Central Red Army set out from Yudu (Jiangxi), fought the Xiangjiang battle, crossed the Chishui four times, forded the Jinsha River, seized Luding Bridge, crossed snow mountains and grasslands, broke through Lazikou, reached Wuqi (northern Shaanxi) in October 1935; the three main forces joined at Huining in October 1936, ending the Long March."
+    ],
+    "dianmian": [
+      "Burma Road (Yunnan–Burma Highway)",
+      "Wartime supply artery built in 1938 from Kunming to Lashio, the lifeline for American Lend-Lease materials until it was cut in 1942 and reopened with the Burma campaign in 1945."
+    ],
+    "zhongyin": [
+      "Ledo Road (Stilwell Road)",
+      "Opened in January 1945, the overland route from Ledo (India) through Myitkyina to Kunming, restoring land supply lines to Free China in the final year of the war."
+    ],
+    "tuofeng": [
+      "The Hump Airlift",
+      "After the Burma Road was cut in 1942, Sino-American air units ferried supplies from Assam (India) over the Himalayan southern ridges to Kunming: peaks near 5,000 m and brutal weather cost hundreds of aircraft in three years — the aluminum wreckage glinting on clear days gave it the name 'Aluminum Valley'."
     ],
     "wall_zhanguo": [
       "Warring States Great Walls (Qin · Zhao · Yan)",

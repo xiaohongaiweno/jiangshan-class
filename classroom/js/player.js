@@ -1,5 +1,5 @@
 /* 江山课堂 · 课件播放器
- * 通过同源 iframe + embed URL 参数驱动「江山时序」地图（embed 期一次性解析参数，
+ * 通过同源 iframe + embed URL 参数驱动舆图（embed 期一次性解析参数，
  * 项目无 postMessage 通道，改 src 重新加载是官方驱动方式）。
  */
 (function () {
@@ -76,7 +76,7 @@
     els.frame.src = buildAtlasUrl(link);
     const target = state.scenes[state.sceneIdx];
     if (target) {
-      // 回跳后保留本幕参数（地图重载即回放本幕），提示教师继续讲述
+      // 回跳后保留本幕参数（地图重载即回放本幕），便于继续讲述
       markSceneCurrent(state.sceneIdx);
     }
   }

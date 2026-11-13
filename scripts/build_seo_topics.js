@@ -20,7 +20,7 @@ const { CONTROLLER_SCRIPTS } = require('./sync_version');
 const ROOT = path.resolve(__dirname, '..');
 const JS_DIR = path.join(ROOT, 'js');
 const TOPICS_DIR = path.join(ROOT, 'topics');
-const BASE_URL = 'https://deanchen.me/jiangshan-map';
+const BASE_URL = 'https://jiangshan-map-9va.pages.dev';
 const LASTMOD = '2026-10-21';
 
 function escHtml(str) {
@@ -64,7 +64,7 @@ function loadAtlasRuntime() {
     clearTimeout,
     location: {
       search: '',
-      origin: 'https://deanchen.me',
+      origin: 'https://jiangshan-map-9va.pages.dev',
       pathname: '/jiangshan-map/',
     },
   };
@@ -366,7 +366,7 @@ function renderSharedHead({
   <meta name="theme-color" content="#f5efe2" />
   <link rel="canonical" href="${escHtml(canonicalUrl)}" />
   <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="江山时序 · Jiangshan Historical Atlas" />
+  <meta property="og:site_name" content="江山时序（教学版） · Jiangshan Historical Atlas" />
   <meta property="og:locale" content="zh_CN" />
   <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:title" content="${escHtml(title)}" />
@@ -696,7 +696,7 @@ function renderFooter(allDynasties) {
       </div>
     </section>
     <footer class="page-footer">
-      <div>© 江山时序（Jiangshan Historical Atlas）· <a href="${BASE_URL}/">deanchen.me/jiangshan-map</a> · 历史疆域与政区为示意性近似</div>
+      <div>© 江山时序（Jiangshan Historical Atlas）· <a href="${BASE_URL}/">jiangshan-map-9va.pages.dev</a> · 历史疆域与政区为示意性近似</div>
       <div><a href="${BASE_URL}/topics/index.html">专题图志总览</a> · <a href="${BASE_URL}/sitemap.xml">Sitemap</a> · <a href="${BASE_URL}/llms.txt">LLMs.txt</a></div>
     </footer>`;
 }
@@ -811,7 +811,7 @@ function buildDynastyPage(d, idx, allDynasties, snapshots, enLocale, ctrl, provi
         },
         isPartOf: {
           '@type': 'WebSite',
-          name: '江山时序 · 中国历史地图',
+          name: '江山时序（教学版） · 中国历史地图',
           url: `${BASE_URL}/`,
         },
       },
@@ -1328,7 +1328,7 @@ ${renderFooter(allDynasties)}
 
 function buildTopicsIndexPage(dynMeta, journeyMeta, featuredMeta, allDynasties) {
   const canonicalUrl = `${BASE_URL}/topics/index.html`;
-  const pageTitle = '江山时序 · 中国历史地图专题图志总览（18朝代疆域 · 人物生平行迹 · 古诗词路线 · 历史战役）';
+  const pageTitle = '江山时序（教学版） · 中国历史地图专题图志总览（18朝代疆域 · 人物生平行迹 · 古诗词路线 · 历史战役）';
   const pageDesc =
     '江山时序（Jiangshan Historical Atlas）静态历史地理专题图志索引：涵盖战国、秦、汉、三国、晋、南北朝、隋、唐、五代、宋、元、明、清、民国与现代18个时期版图政区，秦始皇、张骞、诸葛亮、玄奘、李白、苏轼、王阳明百余位历史人物行迹，以及杜甫、苏轼、文天祥、韩愈、辛弃疾古诗词路线与长平、赤壁、淝水大战地图。';
 
@@ -1371,7 +1371,7 @@ function buildTopicsIndexPage(dynMeta, journeyMeta, featuredMeta, allDynasties) 
     inLanguage: ['zh-CN', 'en'],
     isPartOf: {
       '@type': 'WebSite',
-      name: '江山时序 · 中国历史地图',
+      name: '江山时序（教学版） · 中国历史地图',
       url: `${BASE_URL}/`,
     },
   };
@@ -1477,7 +1477,7 @@ function updateSitemapXml(dynMeta, journeyMeta, featuredMeta) {
 
   // Remove any previously injected /topics/ URLs so this script is idempotent
   const cleanedXml = existingXml.replace(
-    /\s*<url>\s*<loc>https:\/\/deanchen\.me\/jiangshan-map\/topics\/[^<]*<\/loc>[\s\S]*?<\/url>/g,
+    /\s*<url>\s*<loc>https:\/\/jiangshan-map-9va\.pages\.dev\/topics\/[^<]*<\/loc>[\s\S]*?<\/url>/g,
     ''
   );
 

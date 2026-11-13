@@ -2,7 +2,7 @@
   "name": "jiangshan-map",
   "version": "1.0.0",
   "private": true,
-  "description": "江山时序 · 中国历史地图 + 江山课堂 K12 课件与班级任务服务端",
+  "description": "江山时序（教学版）：面向初中历史课堂的交互式中国历史舆图——86 课教材同步课件、688 题题池、中西对照时间轴、单一用户账号与站长统计，支持本地/云主机/Cloudflare 部署。",
   "scripts": {
     "start": "node --no-warnings=ExperimentalWarning server/index.js",
     "server": "node --no-warnings=ExperimentalWarning server/index.js",

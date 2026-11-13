@@ -278,7 +278,25 @@ const MIME = {
   ".md": "text/plain; charset=utf-8"
 };
 
-const DENY_PREFIX = ["/server/data", "/.git", "/node_modules", "/.codebuddy", "/.env"];
+const DENY_PREFIX = [
+  "/server", "/scripts", "/deploy", "/docs", "/skills", "/functions", "/dist",
+  "/node_modules", "/.git", "/.codebuddy", "/.env", "/.wrangler", "/.planning",
+  "/.idea", "/.rankup", "/.ph-assets", "/.trae-html-share-packages"
+];
+
+/* 永不对外提供的文件（basename 精确匹配）与扩展名黑名单 */
+const DENY_FILES = new Set([
+  "package.json", "package-lock.json", "wrangler.toml", "docker-compose.yml",
+  "Dockerfile", ".gitignore", ".dockerignore", "spec.md", "start.md", "tasks.md",
+  "README.md", "CONTRIBUTING.md", "CONTRIBUTING_ZH.md", "CODE_OF_CONDUCT.md",
+  "LICENSE", "sitemap-gen.md"
+]);
+const DENY_SUFFIX = [".md", ".yml", ".yaml", ".toml", ".log", ".sqlite", ".sqlite-shm", ".sqlite-wal"];
+
+/* 归一化路径：折叠连续斜杠，避免 //js/app.js 这类变体 404 或绕过检查 */
+function normalizePathname(p) {
+  return p.replace(/\/{2,}/g, "/");
+}
 
 async function serveStatic(req, res, pathname) {
   if (DENY_PREFIX.some((p) => pathname === p || pathname.startsWith(p + "/"))) {
@@ -286,6 +304,14 @@ async function serveStatic(req, res, pathname) {
   }
   let rel = decodeURIComponent(pathname);
   if (rel.endsWith("/")) rel += "index.html";
+  const seg = rel.split("/").pop();
+  if (
+    seg.startsWith(".") ||
+    DENY_FILES.has(seg) ||
+    DENY_SUFFIX.some((s) => seg.toLowerCase().endsWith(s))
+  ) {
+    return sendError(res, 404, "Not found");
+  }
   const file = path.resolve(ROOT, "." + rel);
   if (!file.startsWith(ROOT)) return sendError(res, 403, "Forbidden");
 
@@ -331,7 +357,10 @@ function throttled(req) {
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://" + (req.headers.host || "localhost"));
-  const pathname = url.pathname;
+  /* 手动切分路径：new URL 会把 //js/app.js 误判为协议相对地址（host=js） */
+  const qIdx = req.url.indexOf("?");
+  const rawPath = qIdx === -1 ? req.url : req.url.slice(0, qIdx);
+  const pathname = normalizePathname(rawPath.startsWith("/") ? rawPath : url.pathname);
 
   try {
     if (pathname.startsWith("/api/")) {

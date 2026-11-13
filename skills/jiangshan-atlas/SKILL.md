@@ -33,7 +33,7 @@ When a user asks about a historical event, classical novel scene, poem, battle, 
 Once `(year, place)` are deduced, format the deep-link URL (do **NOT** guess longitude or latitude numbers):
 
 ```text
-https://deanchen.me/jiangshan-map/?year=<YEAR>&place=<PLACE>
+https://jiangshan-map-9va.pages.dev/?year=<YEAR>&place=<PLACE>
 ```
 
 - **Single site (0D pinpoint)**: `year=<INT>&place=<SITE>` in Chinese or English/Pinyin (e.g., `?year=1102&place=浔阳`, `?year=819&place=蓝关`, or `?year=819&place=Lantian+Pass&lang=en`).
@@ -53,17 +53,17 @@ python3 skills/jiangshan-atlas/scripts/jiangshan.py --person libai,dufu --inspec
 
 | User Prompt | Step 1: Historical & Geographic Deduction (先考据) | Step 2: Deep-Link URL (后构建 URL) |
 | :--- | :--- | :--- |
-| *"找到水浒传宋江江州劫法场的地方"* | 《水浒传》宋江刺配江州、浔阳楼题反诗、劫法场背景为**北宋徽宗崇宁年间**（约 `1102` 年）；宋代江南西路**江州**治所为**浔阳**（今**江西九江**，非巴郡重庆） | `https://deanchen.me/jiangshan-map/?year=1102&place=浔阳&hover=江州` |
-| *"雪拥蓝关马不前 当时是什么时间地点？"* | 韩愈于**唐宪宗元和十四年**（`819` 年）贬潮州途中经秦岭**蓝田关（蓝关）**（今陕西西安蓝田） | `https://deanchen.me/jiangshan-map/?year=819&place=蓝关` |
-| *"杜甫《闻官军收河南河北》即从巴峡穿巫峡，便下襄阳向洛阳路线？"* | **唐代宗广德元年**（`763` 年）杜甫在剑外（四川梓州）闻叛乱平定，规划同年水陆返洛阳路线 | `https://deanchen.me/jiangshan-map/?year=763&place=剑外,巴峡,巫峡,襄阳,洛阳` |
-| *"苏轼问汝平生功业，黄州惠州儋州贬谪路线？"* | 苏轼自乌台诗案（`1079` 湖州）起，历贬**黄州**（`1080`）、**惠州**（`1094`）、**儋州**（`1097`） | `https://deanchen.me/jiangshan-map/?year=1079,1080,1094,1097&place=湖州,黄州,惠州,儋州` |
-| *"李白和杜甫一辈子在哪些地方相遇过？"* | 唐天宝三载至四载（`744–745`），李白与杜甫先后于**洛阳**初遇、与高适同游**梁宋（开封/商丘）**、齐鲁**兖州**话别 | `https://deanchen.me/jiangshan-map/?person=libai,dufu` |
-| *"李白、杜甫、高适三人的交集与各自命运如何？"* | `744` 年三人同游**梁宋（开封/商丘）**；`752` 年杜甫与高适同登**长安**慈恩寺塔；安史之乱后李白流放夜郎，高适出任彭州刺史与成都草堂杜甫唱和（`760`） | `https://deanchen.me/jiangshan-map/?person=libai,dufu,gaoshi` |
-| *"诸葛亮北伐与司马懿在哪几处正面交锋？"* | 蜀汉建兴六年至十二年（`228–234`），两人先后于**祁山**、**卤城/木门道**、**五丈原**展开宿命对决 | `https://deanchen.me/jiangshan-map/?person=zhugeliang,simayi` |
-| *"文天祥《过零丁洋》惶恐滩头说惶恐，零丁洋里叹零丁抗元路线？"* | 南宋末文天祥自**赣州**起兵（`1275`），撤退经江西万安**惶恐滩**（`1277`），于珠江口**零丁洋**被俘（`1278`），至**崖山**海战（`1279`） | `https://deanchen.me/jiangshan-map/?year=1275,1277,1278,1279&place=赣州,惶恐滩,零丁洋,崖山` |
-| *"辛弃疾写京口北固亭怀古时天下局势如何？"* | **南宋宁宗开禧元年**（`1205` 年）辛弃疾任镇江知府，登**京口**（今江苏镇江）北固亭北望金朝 | `https://deanchen.me/jiangshan-map/?year=1205&place=京口` |
-| *"苏轼写《记承天寺夜游》时黄州归哪里管？"* | **北宋神宗元丰六年**（`1083` 年）苏轼贬居淮南西路**黄州**（今湖北黄冈），高亮黄州州界 | `https://deanchen.me/jiangshan-map/?year=1083&place=黄州&hover=黄州` |
-| *"Where was Su Shi exiled when he wrote the Red Cliff odes?"* | **Northern Song Yuanfeng 5** (`1082` CE), exiled at **Huangzhou** (`黄州`, modern Huanggang, Hubei), English UI | `https://deanchen.me/jiangshan-map/?year=1082&place=Huangzhou&lang=en` |
+| *"找到水浒传宋江江州劫法场的地方"* | 《水浒传》宋江刺配江州、浔阳楼题反诗、劫法场背景为**北宋徽宗崇宁年间**（约 `1102` 年）；宋代江南西路**江州**治所为**浔阳**（今**江西九江**，非巴郡重庆） | `https://jiangshan-map-9va.pages.dev/?year=1102&place=浔阳&hover=江州` |
+| *"雪拥蓝关马不前 当时是什么时间地点？"* | 韩愈于**唐宪宗元和十四年**（`819` 年）贬潮州途中经秦岭**蓝田关（蓝关）**（今陕西西安蓝田） | `https://jiangshan-map-9va.pages.dev/?year=819&place=蓝关` |
+| *"杜甫《闻官军收河南河北》即从巴峡穿巫峡，便下襄阳向洛阳路线？"* | **唐代宗广德元年**（`763` 年）杜甫在剑外（四川梓州）闻叛乱平定，规划同年水陆返洛阳路线 | `https://jiangshan-map-9va.pages.dev/?year=763&place=剑外,巴峡,巫峡,襄阳,洛阳` |
+| *"苏轼问汝平生功业，黄州惠州儋州贬谪路线？"* | 苏轼自乌台诗案（`1079` 湖州）起，历贬**黄州**（`1080`）、**惠州**（`1094`）、**儋州**（`1097`） | `https://jiangshan-map-9va.pages.dev/?year=1079,1080,1094,1097&place=湖州,黄州,惠州,儋州` |
+| *"李白和杜甫一辈子在哪些地方相遇过？"* | 唐天宝三载至四载（`744–745`），李白与杜甫先后于**洛阳**初遇、与高适同游**梁宋（开封/商丘）**、齐鲁**兖州**话别 | `https://jiangshan-map-9va.pages.dev/?person=libai,dufu` |
+| *"李白、杜甫、高适三人的交集与各自命运如何？"* | `744` 年三人同游**梁宋（开封/商丘）**；`752` 年杜甫与高适同登**长安**慈恩寺塔；安史之乱后李白流放夜郎，高适出任彭州刺史与成都草堂杜甫唱和（`760`） | `https://jiangshan-map-9va.pages.dev/?person=libai,dufu,gaoshi` |
+| *"诸葛亮北伐与司马懿在哪几处正面交锋？"* | 蜀汉建兴六年至十二年（`228–234`），两人先后于**祁山**、**卤城/木门道**、**五丈原**展开宿命对决 | `https://jiangshan-map-9va.pages.dev/?person=zhugeliang,simayi` |
+| *"文天祥《过零丁洋》惶恐滩头说惶恐，零丁洋里叹零丁抗元路线？"* | 南宋末文天祥自**赣州**起兵（`1275`），撤退经江西万安**惶恐滩**（`1277`），于珠江口**零丁洋**被俘（`1278`），至**崖山**海战（`1279`） | `https://jiangshan-map-9va.pages.dev/?year=1275,1277,1278,1279&place=赣州,惶恐滩,零丁洋,崖山` |
+| *"辛弃疾写京口北固亭怀古时天下局势如何？"* | **南宋宁宗开禧元年**（`1205` 年）辛弃疾任镇江知府，登**京口**（今江苏镇江）北固亭北望金朝 | `https://jiangshan-map-9va.pages.dev/?year=1205&place=京口` |
+| *"苏轼写《记承天寺夜游》时黄州归哪里管？"* | **北宋神宗元丰六年**（`1083` 年）苏轼贬居淮南西路**黄州**（今湖北黄冈），高亮黄州州界 | `https://jiangshan-map-9va.pages.dev/?year=1083&place=黄州&hover=黄州` |
+| *"Where was Su Shi exiled when he wrote the Red Cliff odes?"* | **Northern Song Yuanfeng 5** (`1082` CE), exiled at **Huangzhou** (`黄州`, modern Huanggang, Hubei), English UI | `https://jiangshan-map-9va.pages.dev/?year=1082&place=Huangzhou&lang=en` |
 
 ### Step 3 (Optional): Render a Map Screenshot On-Demand (`--out`)
 

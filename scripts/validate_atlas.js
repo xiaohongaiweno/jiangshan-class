@@ -453,17 +453,17 @@ function main() {
   const sitemapXml = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
   const robotsTxt = fs.readFileSync(path.join(ROOT, 'robots.txt'), 'utf8');
   assert(
-    indexHtml.includes('href="https://deanchen.me/jiangshan-map/"') &&
+    indexHtml.includes('href="https://jiangshan-map-9va.pages.dev/"') &&
       indexHtml.includes('"@type": "FAQPage"') &&
-      sitemapXml.includes('<loc>https://deanchen.me/jiangshan-map/</loc>') &&
+      sitemapXml.includes('<loc>https://jiangshan-map-9va.pages.dev/</loc>') &&
       robotsTxt.includes('User-agent: Baiduspider') &&
       robotsTxt.includes('User-agent: Bytespider') &&
-      robotsTxt.includes('Sitemap: https://deanchen.me/jiangshan-map/sitemap.xml') &&
+      robotsTxt.includes('Sitemap: https://jiangshan-map-9va.pages.dev/sitemap.xml') &&
       !indexHtml.toLowerCase().includes('deanchensj.github.io') &&
       !sitemapXml.toLowerCase().includes('deanchensj.github.io') &&
       !robotsTxt.toLowerCase().includes('deanchensj.github.io') &&
       !appCode.toLowerCase().includes('deanchensj.github.io'),
-    'SEO/GEO files (index.html, sitemap.xml, robots.txt, app.js) must canonicalize to https://deanchen.me/jiangshan-map/ and allow Baiduspider/Bytespider'
+    'SEO/GEO files (index.html, sitemap.xml, robots.txt, app.js) must canonicalize to https://jiangshan-map-9va.pages.dev/ and allow Baiduspider/Bytespider'
   );
   const topicsDir = path.join(ROOT, 'topics');
   assert(
@@ -488,7 +488,7 @@ function main() {
     const tfPath = path.join(topicsDir, tf);
     assert(fs.existsSync(tfPath), `Missing static SEO topic page: topics/${tf}`);
     const tfHtml = fs.readFileSync(tfPath, 'utf8');
-    const expectedCanon = `https://deanchen.me/jiangshan-map/topics/${tf}`;
+    const expectedCanon = `https://jiangshan-map-9va.pages.dev/topics/${tf}`;
     assert(
       tfHtml.includes(`rel="canonical" href="${expectedCanon}"`) &&
         tfHtml.includes('application/ld+json') &&
@@ -554,7 +554,7 @@ function main() {
   sandbox.clearTimeout = clearTimeout;
   sandbox.location = {
     search: '',
-    origin: 'https://deanchen.me',
+    origin: 'https://jiangshan-map-9va.pages.dev',
     pathname: '/jiangshan-map/',
   };
   sandbox.window.location = sandbox.location;
@@ -1077,7 +1077,7 @@ function main() {
     ).trim();
     const decodedCliOut = decodeURIComponent(cliOut);
     assert(
-      decodedCliOut.includes('URL: https://deanchen.me/jiangshan-map/?year=1079,1080,1094,1097&place=湖州,黄州,惠州,儋州'),
+      decodedCliOut.includes('URL: https://jiangshan-map-9va.pages.dev/?year=1079,1080,1094,1097&place=湖州,黄州,惠州,儋州'),
       `Unexpected jiangshan.py CLI output: ${decodedCliOut}`
     );
   }
@@ -1377,28 +1377,20 @@ function main() {
   const htmlSrc = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
   assert(!htmlSrc.includes('id="diag-hatch"'), 'index.html must not contain unused #diag-hatch pattern');
   const readmeSrc = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
-  const readmeZhSrc = fs.readFileSync(path.join(ROOT, 'README_ZH.md'), 'utf8');
+  const topicsIndexSrc = fs.readFileSync(path.join(ROOT, 'topics/index.html'), 'utf8');
   const contributingSrc = fs.readFileSync(path.join(ROOT, 'CONTRIBUTING.md'), 'utf8');
   const contributingZhSrc = fs.readFileSync(path.join(ROOT, 'CONTRIBUTING_ZH.md'), 'utf8');
   assert(
-    !readmeZhSrc.includes('点右上角的 **「开始挑战」**') &&
-      !readmeZhSrc.includes('青史行迹 ▾') &&
-      readmeZhSrc.includes('点人溯事') &&
-      readmeZhSrc.includes('舆图寻址 · 古地名小试') &&
-      readmeZhSrc.includes('href="README.md"') &&
-      !readmeSrc.includes('Journeys ▾') &&
-      readmeSrc.includes('Person Chronicles') &&
-      readmeSrc.includes('Map Pinpoint · Ancient Place Quiz') &&
-      readmeSrc.includes('href="README_ZH.md"') &&
+    readmeSrc.includes('点人溯事') &&
+      readmeSrc.includes('舆图寻址') &&
       contributingSrc.includes('href="CONTRIBUTING_ZH.md"') &&
       contributingSrc.includes('lore_data.js') &&
       contributingZhSrc.includes('href="CONTRIBUTING.md"') &&
       contributingZhSrc.includes('lore_data.js') &&
       !readmeSrc.includes('&event=') &&
-      !readmeZhSrc.includes('&event=') &&
       !appCode.includes("q.has('event')") &&
-      !/\b\d{3}\s*(幅|座|处|条|桩|段)/.test(readmeZhSrc),
-    'README.md, README_ZH.md, CONTRIBUTING.md, CONTRIBUTING_ZH.md, and app.js must cross-link between English and Chinese docs, reference lore_data.js, document unified Person Chronicles & search-box Quiz entry point, avoid redundant &event= query params, and avoid hardcoded 3-digit entity counts'
+      !/\b\d{3}\s*(幅|座|处|条|桩|段)/.test(readmeSrc),
+    'README.md and CONTRIBUTING docs must reference lore_data.js, document Person Chronicles & Quiz entry points, avoid redundant &event= query params, and avoid hardcoded 3-digit entity counts'
   );
   const llmsSrc = fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8');
   for (const d of dynasties) {
@@ -3362,8 +3354,6 @@ function main() {
     ['assets/preview_journey_sushi_en.webp', 'assets/preview_journey_sushi.webp'],
     ['assets/preview_quiz_challenge_en.webp', 'assets/preview_quiz_challenge.webp'],
   ]) {
-    assert(readmeSrc.includes(enAsset), `README.md must reference English preview ${enAsset}`);
-    assert(readmeZhSrc.includes(zhAsset), `README_ZH.md must reference Chinese preview ${zhAsset}`);
     assert(fs.existsSync(path.join(ROOT, enAsset)), `Missing preview asset file ${enAsset}`);
     assert(fs.existsSync(path.join(ROOT, zhAsset)), `Missing preview asset file ${zhAsset}`);
   }
@@ -3997,7 +3987,7 @@ function main() {
       `index.html #milestone-list count (${ssrCount}) must match Warring States milestones (${dynasties[0].milestones.length})`
     );
 
-    const refCorpus = [indexHtml, styleCss, appCode, readmeSrc, readmeZhSrc].join('\n');
+    const refCorpus = [indexHtml, styleCss, appCode, readmeSrc, topicsIndexSrc].join('\n');
     for (const assetFile of fs.readdirSync(path.join(ROOT, 'assets'))) {
       assert(refCorpus.includes(assetFile), `Unreferenced file in assets/: ${assetFile}`);
     }
@@ -6602,7 +6592,7 @@ function main() {
           const openUrl = ctrl._embedOpenUrl();
           assert(openUrl.endsWith('?year=1104&trace=101.778,36.617'), `The "open in atlas" link must carry the view without embed params, got ${openUrl}`);
 
-          for (const readme of ['README.md', 'README_ZH.md']) {
+          for (const readme of ['README.md']) {
             const text = require('fs').readFileSync(require('path').join(__dirname, '..', readme), 'utf8');
             assert(text.includes('embed=1') && text.includes('from=1072&to=1126'), `${readme} must document embed mode`);
           }

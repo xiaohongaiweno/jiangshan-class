@@ -17,7 +17,7 @@ import urllib.request
 import zlib
 
 PUBLIC_BASE_URL = os.environ.get(
-    "JIANGSHAN_PUBLIC_URL", "https://deanchen.me/jiangshan-map/"
+    "JIANGSHAN_PUBLIC_URL", "https://jiangshan-map-9va.pages.dev/"
 )
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 MIN_VALID_PNG_BYTES = 65_536

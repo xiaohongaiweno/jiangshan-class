@@ -4,7 +4,7 @@
   <a href="CONTRIBUTING.md">English</a> · <strong>简体中文</strong>
 </p>
 
-感谢你对 **江山时序 (`jiangshan-map`)** 的关注！本项目致力于构建一个零运行时依赖、兼具东方宣纸设色美学与历史地理严谨性的中国历代疆域与政区交互舆图。
+感谢你对 **江山时序（教学版） (`jiangshan-class`)** 的关注！本项目致力于构建一个零运行时依赖、兼具东方宣纸设色美学与历史地理严谨性的中国历代疆域与政区交互舆图，并围绕它提供与统编版初中历史教材逐课对应的课件、题池与教学工具。
 
 欢迎任何形式的贡献，包括但不限于：
 - **史料校勘与地名订正**：修正古地名经纬度偏差、补充州郡治所沿革说明（`remark`）或调整政权阶段起止年份；
@@ -47,7 +47,7 @@
 1. **克隆仓库并启动本地预览**：
    本项目采用纯原生 ES6 + SVG 构建，无需安装任何 npm 依赖即可直接运行：
    ```bash
-   git clone https://github.com/DeanChensj/jiangshan-map.git
+   git clone https://github.com/xiaohongaiweno/jiangshan-class.git
    cd jiangshan-map
    python3 -m http.server 8000
    ```

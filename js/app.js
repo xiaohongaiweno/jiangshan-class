@@ -1652,7 +1652,7 @@
         homeLink.href = this.locale === 'en' ? './?lang=en' : this.locale === 'zh-tw' ? './?lang=zh-tw' : './';
         homeLink.title = this.locale === 'en' ? 'Back to home' : this._zh('回到首页');
       }
-      this._id('txt-subtitle').textContent = this.uiStr('brand_sub', '中国历史地图 · 战国 → 今');
+      this._id('txt-subtitle').textContent = this.uiStr('brand_sub', '教学版 · 中国历史课堂交互舆图');
       const lblLayersBtn = this._id('lbl-layers-btn');
       if (lblLayersBtn) {
         lblLayersBtn.textContent = this.uiStr('btn_layers', '图层');
@@ -5363,7 +5363,7 @@
     // ---------------- Chronicle Sidebar ----------------
     _syncDocumentSeoMeta() {
       if (typeof document === 'undefined') return;
-      const baseSiteUrl = 'https://deanchen.me/jiangshan-map/';
+      const baseSiteUrl = 'https://jiangshan-map-9va.pages.dev/';
       const isEn = this.locale === 'en';
       const cur = this.dynasties && this.dynasties[this.dynastyIdx];
       let pageTitle = isEn
@@ -5436,7 +5436,7 @@
         'aria-label',
         'Historical Dynasties, Person Chronicles & Strategic Passes Directory'
       );
-      const baseSiteUrl = 'https://deanchen.me/jiangshan-map/';
+      const baseSiteUrl = 'https://jiangshan-map-9va.pages.dev/';
       const dynItems = (this.dynasties || [])
         .map((d) => {
           const dName = this.dynastyName(d);

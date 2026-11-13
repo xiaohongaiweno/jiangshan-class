@@ -4,7 +4,7 @@
   <strong>English</strong> · <a href="CONTRIBUTING_ZH.md">简体中文 (Chinese)</a>
 </p>
 
-Thank you for your interest in **Chronicles of the Realm (`jiangshan-map`)**! This project aims to build a zero-dependency, historically rigorous interactive atlas of Chinese dynastic territories, administrative divisions, ancient cities, and historical journeys crafted in the aesthetic of traditional Chinese parchment cartography.
+Thank you for your interest in **Chronicles of the Realm, Classroom Edition (`jiangshan-class`)**! This project builds a zero-dependency, historically rigorous interactive atlas of Chinese dynastic territories, administrative divisions, ancient cities, and historical journeys crafted in the aesthetic of traditional Chinese parchment cartography — plus 86 textbook-aligned lesson decks, a 688-question quiz bank, and classroom tools for middle-school history teaching.
 
 We welcome contributions of all kinds, including:
 - **Historical & Geographic Corrections**: Fixing ancient place coordinates, refining prefecture/circuit evolution notes (`remark`), or adjusting dynastic phase transition years;
@@ -47,7 +47,7 @@ We welcome contributions of all kinds, including:
 1. **Clone and Serve Locally**:
    Built with vanilla ES6 and SVG with zero runtime or npm dependencies—simply serve the repository root with any static HTTP server:
    ```bash
-   git clone https://github.com/DeanChensj/jiangshan-map.git
+   git clone https://github.com/xiaohongaiweno/jiangshan-class.git
    cd jiangshan-map
    python3 -m http.server 8000
    ```
