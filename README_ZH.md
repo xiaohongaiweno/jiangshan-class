@@ -1,7 +1,7 @@
 # 江山时序 · Chronicles of the Realm
 
 <p align="left">
-  <a href="README.md">English</a> · <strong>简体中文</strong>
+  <a href="README.md"><strong>教学使用指南（如何用本工程上课）</strong></a> · 本页：舆图功能详细介绍
 </p>
 
 **一幅可以拖动时间、点城读史、追随古人足迹的中国历史交互舆图（公元前 403 年三家分晋 — 今）**
