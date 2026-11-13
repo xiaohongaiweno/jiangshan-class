@@ -1,0 +1,34 @@
+services:
+  jiangshan-map:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    pull_policy: build
+    image: jiangshan-map:latest
+    container_name: jiangshan-map
+    ports:
+      - "8008:80"
+    restart: unless-stopped
+
+  # 江山课堂服务端（单一用户账号 + 静态站点托管）
+  jiangshan-classroom:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: jiangshan-classroom:latest
+    container_name: jiangshan-classroom
+    environment:
+      PORT: "8090"
+      DB_PATH: /data/app.db
+      # nginx 挂 HTTPS 时保持 1；若先用 http 直连调试，改成 "0"
+      COOKIE_SECURE: "1"
+      # 站长统计口令，建议改为长随机串
+      # ADMIN_TOKEN: "change-me"
+    ports:
+      - "8090:8090"
+    volumes:
+      - jiangshan-data:/data
+    restart: unless-stopped
+
+volumes:
+  jiangshan-data:

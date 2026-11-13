@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>登录 · 江山课堂</title>
+<meta name="description" content="江山课堂账号登录与注册：一种账号，课件题池全开放。">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+<main class="auth-wrap">
+  <header class="auth-brand">
+    <a href="index.html">江山课堂</a>
+  </header>
+
+  <section class="auth-card">
+    <h1>登录 / 注册</h1>
+    <p class="sub">课件与题池无需登录即可使用；登录用于保存个人设置。</p>
+
+    <div id="offline" class="offline" hidden>
+      <b>未检测到服务端</b>
+      <p>当前是纯静态部署。课件与题池可正常使用：</p>
+      <div class="offline-actions">
+        <a class="link-btn" href="index.html">打开课件</a>
+        <a class="link-btn" href="bank.html">自由练题</a>
+      </div>
+      <p class="tiny">需要账号时，请用 <code>npm start</code> 启动服务端后访问本页。</p>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="t-login" type="button">登录</button>
+      <button class="tab" data-tab="t-register" type="button">注册</button>
+    </div>
+
+    <form id="t-login" class="pane active">
+      <label>用户名<input name="username" autocomplete="username" required /></label>
+      <label>密码<input name="password" type="password" autocomplete="current-password" required /></label>
+      <button class="submit" type="submit">登录</button>
+    </form>
+
+    <form id="t-register" class="pane">
+      <label>姓名<input name="name" maxlength="30" placeholder="如 王老师" required /></label>
+      <label>用户名<input name="username" maxlength="40" placeholder="3–40 位字母、数字、_ . -" required /></label>
+      <label>邮箱<input name="email" type="email" maxlength="100" placeholder="如 name@example.com" autocomplete="email" required /></label>
+      <label>密码<input name="password" type="password" minlength="6" autocomplete="new-password" placeholder="至少 6 位" required /></label>
+      <button class="submit" type="submit">注册并登录</button>
+    </form>
+
+    <p id="auth-msg" class="msg" role="status"></p>
+  </section>
+
+  <footer class="auth-foot">
+    <a href="index.html">返回课件</a>
+    <a href="bank.html">题池</a>
+    <a href="compare.html">中西对照</a>
+  </footer>
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

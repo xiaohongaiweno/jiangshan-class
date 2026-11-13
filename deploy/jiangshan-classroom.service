@@ -1,0 +1,45 @@
+# 江山课堂 · systemd 服务单元
+# 安装：
+#   sudo cp deploy/jiangshan-classroom.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now jiangshan-classroom
+# 日志：journalctl -u jiangshan-classroom -f
+#
+# 前提：仓库位于 /srv/jiangshan-map，运行用户 jiangshan，
+#       Node ≥ 22（用到内置 node:sqlite）。
+
+[Unit]
+Description=Jiangshan Classroom (Node + SQLite)
+Documentation=https://github.com/DeanChensj/jiangshan-map
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=jiangshan
+Group=jiangshan
+WorkingDirectory=/srv/jiangshan-map
+
+Environment=NODE_ENV=production
+Environment=PORT=8090
+Environment=DB_PATH=/var/lib/jiangshan/app.db
+Environment=COOKIE_SECURE=1
+# 站长统计口令（/api/admin/stats），换成你自己的长随机串：
+# Environment=ADMIN_TOKEN=change-me-to-a-long-random-token
+
+ExecStart=/usr/bin/node --no-warnings=ExperimentalWarning server/index.js
+Restart=always
+RestartSec=3
+KillSignal=SIGINT
+
+# 安全加固：整机只读，仅数据目录可写
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+StateDirectory=jiangshan
+
+[Install]
+WantedBy=multi-user.target

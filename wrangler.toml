@@ -1,0 +1,22 @@
+# 江山时序 · Cloudflare Pages 部署配置（含用户账号 API）
+# 用法：npm run deploy   （等价 node scripts/cf_dist.cjs && wrangler pages deploy）
+# 免费额度：静态请求无限；Functions 免费档 10 万次请求/天；D1 免费档 5GB 存储——绰绰有余。
+# 多账号时用环境变量固定部署账号：CLOUDFLARE_ACCOUNT_ID=822bf61c2431f2377217cfa24c3aed70
+name = "jiangshan-map"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-11-11"
+
+# functions/api/[[route]].js 自动接管 /api/*（Pages Functions，Workers 运行时）
+# 单一用户账号系统（不分教师/学生）。
+[vars]
+COOKIE_SECURE = "1"            # pages.dev 为 https，Secure Cookie 默认开启
+# ADMIN_TOKEN 为站长统计口令，用 secret 管理：
+#   echo "<口令>" | npx wrangler pages secret put ADMIN_TOKEN --project-name jiangshan-map
+
+# 用户账号数据库（免费版 D1，即 SQLite）
+# 首次部署前执行：wrangler d1 create jiangshan-classroom 取得 database_id 后填入，
+# 再应用 schema：wrangler d1 execute jiangshan-classroom --remote --file server/schema.sql
+[[d1_databases]]
+binding = "DB"
+database_name = "jiangshan-classroom"
+database_id = "9cf6faac-8de4-4a57-99a9-c18250bcaeb3"

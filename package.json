@@ -1,0 +1,17 @@
+{
+  "name": "jiangshan-map",
+  "version": "1.0.0",
+  "private": true,
+  "description": "江山时序 · 中国历史地图 + 江山课堂 K12 课件与班级任务服务端",
+  "scripts": {
+    "start": "node --no-warnings=ExperimentalWarning server/index.js",
+    "server": "node --no-warnings=ExperimentalWarning server/index.js",
+    "validate": "node classroom/validate_lessons.cjs",
+    "build:answers": "node scripts/build_answers.cjs",
+    "build:cf": "npm run build:answers && node scripts/cf_dist.cjs",
+    "deploy": "npm run build:cf && npx wrangler pages deploy"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

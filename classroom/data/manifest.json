@@ -1,0 +1,752 @@
+{
+  "note": "目录依据统编版初中历史滚动新教材（七上/七下 2024，八上/八下 2025，九上/九下 2026）。status: ready=课件可播放, pending=未上线（tag 区分：审校中=待与纸质教材核对课题与表述；不做疆域课件=九年级世界史以中西对照时间轴替代，见 docs/k12-product-plan.md §2.3）。九年级为世界史，不做疆域课件（见 docs/k12-product-plan.md §2.3）。",
+  "textbooks": [
+    {
+      "id": "t7a",
+      "name": "七年级上册",
+      "version": "统编版(2024)",
+      "units": [
+        {
+          "name": "第一单元 史前时期：原始社会与中华文明的起源",
+          "lessons": [
+            {
+              "no": 1,
+              "title": "远古时期的人类活动",
+              "id": "q7s-u1-l01",
+              "status": "ready"
+            },
+            {
+              "no": 2,
+              "title": "原始农业与史前社会",
+              "id": "q7s-u1-l02",
+              "status": "ready"
+            },
+            {
+              "no": 3,
+              "title": "中华文明的起源",
+              "id": "q7s-u1-l03",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第二单元 夏商周时期：奴隶制王朝的更替和向封建社会的过渡",
+          "lessons": [
+            {
+              "no": 4,
+              "title": "夏商西周王朝的更替",
+              "id": "q7s-u2-l04",
+              "status": "ready"
+            },
+            {
+              "no": 5,
+              "title": "动荡变化中的春秋时期",
+              "id": "q7s-u2-l05",
+              "status": "ready"
+            },
+            {
+              "no": 6,
+              "title": "战国时期的社会变革",
+              "id": "q7s-u2-l06",
+              "status": "ready"
+            },
+            {
+              "no": 7,
+              "title": "百家争鸣",
+              "id": "q7s-u2-l07",
+              "status": "ready"
+            },
+            {
+              "no": 8,
+              "title": "夏商周时期的科技与文化",
+              "id": "q7s-u2-l08",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第三单元 秦汉时期：统一多民族封建国家的建立和巩固",
+          "lessons": [
+            {
+              "no": 9,
+              "title": "秦统一中国",
+              "id": "q7s-u3-l09",
+              "status": "ready"
+            },
+            {
+              "no": 10,
+              "title": "秦末农民大起义",
+              "id": "q7s-u3-l10",
+              "status": "ready"
+            },
+            {
+              "no": 11,
+              "title": "西汉建立和“文景之治”",
+              "id": "q7s-u3-l11",
+              "status": "ready"
+            },
+            {
+              "no": 12,
+              "title": "大一统王朝的巩固",
+              "id": "q7s-u3-l12",
+              "status": "ready"
+            },
+            {
+              "no": 13,
+              "title": "东汉的兴衰",
+              "id": "q7s-u3-l13",
+              "status": "ready"
+            },
+            {
+              "no": 14,
+              "title": "丝绸之路的开通与经营西域",
+              "id": "q7s-u3-l14",
+              "status": "ready"
+            },
+            {
+              "no": 15,
+              "title": "秦汉时期的科技与文化",
+              "id": "q7s-u3-l15",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第四单元 三国两晋南北朝时期：政权分立与民族交融",
+          "lessons": [
+            {
+              "no": 16,
+              "title": "三国鼎立",
+              "id": "q7s-u4-l16",
+              "status": "ready"
+            },
+            {
+              "no": 17,
+              "title": "西晋的短暂统一和北方各族的内迁",
+              "id": "q7s-u4-l17",
+              "status": "ready"
+            },
+            {
+              "no": 18,
+              "title": "东晋南朝政治和江南地区开发",
+              "id": "q7s-u4-l18",
+              "status": "ready"
+            },
+            {
+              "no": 19,
+              "title": "北朝政治和北方民族大交融",
+              "id": "q7s-u4-l19",
+              "status": "ready"
+            },
+            {
+              "no": 20,
+              "title": "三国两晋南北朝时期的科技与文化",
+              "id": "q7s-u4-l20",
+              "status": "ready"
+            },
+            {
+              "no": 21,
+              "title": "活动课：从考古发现看中华文明的起源",
+              "id": "q7s-u4-l21",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "学史方法（随册栏目）",
+          "lessons": [
+            {
+              "no": null,
+              "title": "如何阅读历史地图",
+              "id": "ff2024-readmap",
+              "status": "ready"
+            },
+            {
+              "no": null,
+              "title": "如何掌握历史纪年法",
+              "id": "ff2024-chronology",
+              "status": "ready"
+            },
+            {
+              "no": null,
+              "title": "如何从出土文物获取信息",
+              "id": "ff2024-relics",
+              "status": "ready"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t7b",
+      "name": "七年级下册",
+      "version": "统编版(2024)",
+      "units": [
+        {
+          "name": "第一单元 隋唐时期：繁荣与开放的时代",
+          "lessons": [
+            {
+              "no": 1,
+              "title": "隋朝统一与灭亡",
+              "id": "q7x-u1-l01",
+              "status": "ready"
+            },
+            {
+              "no": 2,
+              "title": "唐朝建立与“贞观之治”",
+              "id": "q7x-u1-l02",
+              "status": "ready"
+            },
+            {
+              "no": 3,
+              "title": "“开元盛世”",
+              "id": "q7x-u1-l03",
+              "status": "ready"
+            },
+            {
+              "no": 4,
+              "title": "安史之乱与唐朝衰亡",
+              "id": "q7x-u1-l04",
+              "status": "ready"
+            },
+            {
+              "no": 5,
+              "title": "隋唐时期的民族交往与交融",
+              "id": "q7x-u1-l05",
+              "status": "ready"
+            },
+            {
+              "no": 6,
+              "title": "隋唐时期的中外文化交流",
+              "id": "q7x-u1-l06",
+              "status": "ready"
+            },
+            {
+              "no": 7,
+              "title": "隋唐时期的科技与文化",
+              "id": "q7x-u1-l07",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第二单元 辽宋夏金元时期：民族关系发展和社会变化",
+          "lessons": [
+            {
+              "no": 8,
+              "title": "北宋的政治",
+              "id": "q7x-u2-l08",
+              "status": "ready"
+            },
+            {
+              "no": 9,
+              "title": "辽、西夏与北宋并立",
+              "id": "q7x-u2-l09",
+              "status": "ready"
+            },
+            {
+              "no": 10,
+              "title": "金与南宋对峙",
+              "id": "q7x-u2-l10",
+              "status": "ready"
+            },
+            {
+              "no": 11,
+              "title": "元朝的建立与统一",
+              "id": "q7x-u2-l11",
+              "status": "ready"
+            },
+            {
+              "no": 12,
+              "title": "辽宋夏金元时期经济的繁荣",
+              "id": "q7x-u2-l12",
+              "status": "ready"
+            },
+            {
+              "no": 13,
+              "title": "辽宋夏金元时期的对外交流",
+              "id": "q7x-u2-l13",
+              "status": "ready"
+            },
+            {
+              "no": 14,
+              "title": "辽宋夏金元时期的科技与文化",
+              "id": "q7x-u2-l14",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第三单元 明清时期（至鸦片战争前）：统一多民族封建国家的巩固与发展",
+          "lessons": [
+            {
+              "no": 15,
+              "title": "明朝的统治",
+              "id": "q7x-u3-l15",
+              "status": "ready"
+            },
+            {
+              "no": 16,
+              "title": "明朝的对外关系",
+              "id": "q7x-u3-l16",
+              "status": "ready"
+            },
+            {
+              "no": 17,
+              "title": "明朝的灭亡和清朝的建立",
+              "id": "q7x-u3-l17",
+              "status": "ready"
+            },
+            {
+              "no": 18,
+              "title": "清朝的边疆治理",
+              "id": "q7x-u3-l18",
+              "status": "ready"
+            },
+            {
+              "no": 19,
+              "title": "清朝君主专制的强化",
+              "id": "q7x-u3-l19",
+              "status": "ready"
+            },
+            {
+              "no": 20,
+              "title": "明清时期社会经济的发展",
+              "id": "q7x-u3-l20",
+              "status": "ready"
+            },
+            {
+              "no": 21,
+              "title": "明清时期的科技与文化",
+              "id": "q7x-u3-l21",
+              "status": "ready"
+            },
+            {
+              "no": 22,
+              "title": "活动课：我国传统节日的起源与传承",
+              "id": "q7x-u3-l22",
+              "status": "ready"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t8a",
+      "name": "八年级上册",
+      "version": "统编版(2025)",
+      "units": [
+        {
+          "name": "第一单元 中国开始沦为半殖民地半封建社会",
+          "lessons": [
+            {
+              "no": 1,
+              "title": "鸦片战争",
+              "id": "q8s-u1-l01",
+              "status": "ready"
+            },
+            {
+              "no": 2,
+              "title": "第二次鸦片战争",
+              "id": "q8s-u1-l02",
+              "status": "ready"
+            },
+            {
+              "no": 3,
+              "title": "太平天国运动",
+              "id": "q8s-u1-l03",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第二单元 早期现代化的初步探索和民族危机加剧",
+          "lessons": [
+            {
+              "no": 4,
+              "title": "洋务运动和边疆危机",
+              "id": "q8s-u2-l04",
+              "status": "ready"
+            },
+            {
+              "no": 5,
+              "title": "甲午中日战争与列强瓜分中国狂潮",
+              "id": "q8s-u2-l05",
+              "status": "ready"
+            },
+            {
+              "no": 6,
+              "title": "戊戌变法",
+              "id": "q8s-u2-l06",
+              "status": "ready"
+            },
+            {
+              "no": 7,
+              "title": "义和团运动和八国联军侵华",
+              "id": "q8s-u2-l07",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第三单元 资产阶级民主革命与中华民国的建立",
+          "lessons": [
+            {
+              "no": 8,
+              "title": "中国同盟会",
+              "id": "q8s-u3-l08",
+              "status": "ready"
+            },
+            {
+              "no": 9,
+              "title": "辛亥革命",
+              "id": "q8s-u3-l09",
+              "status": "ready"
+            },
+            {
+              "no": 10,
+              "title": "帝制复辟与军阀割据",
+              "id": "q8s-u3-l10",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第四单元 新民主主义革命的兴起",
+          "lessons": [
+            {
+              "no": 11,
+              "title": "五四运动",
+              "id": "q8s-u4-l11",
+              "status": "ready"
+            },
+            {
+              "no": 12,
+              "title": "中国共产党诞生",
+              "id": "q8s-u4-l12",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第五单元 从国共合作到农村革命根据地的建立",
+          "lessons": [
+            {
+              "no": 13,
+              "title": "国共合作与北伐战争",
+              "id": "q8s-u5-l13",
+              "status": "ready"
+            },
+            {
+              "no": 14,
+              "title": "毛泽东开辟井冈山道路",
+              "id": "q8s-u5-l14",
+              "status": "ready"
+            },
+            {
+              "no": 15,
+              "title": "中国工农红军长征与遵义会议",
+              "id": "q8s-u5-l15",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第六单元 中华民族的抗日战争",
+          "lessons": [
+            {
+              "no": 16,
+              "title": "从九一八事变到西安事变",
+              "id": "q8s-u6-l16",
+              "status": "ready"
+            },
+            {
+              "no": 17,
+              "title": "七七事变与全民族抗战",
+              "id": "q8s-u6-l17",
+              "status": "ready"
+            },
+            {
+              "no": 18,
+              "title": "全民族抗战中的正面战场和敌后战场",
+              "id": "q8s-u6-l18",
+              "status": "ready"
+            },
+            {
+              "no": 19,
+              "title": "抗日战争的胜利",
+              "id": "q8s-u6-l19",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第七单元 人民解放战争",
+          "lessons": [
+            {
+              "no": 20,
+              "title": "国民党挑起内战",
+              "id": "q8s-u7-l20",
+              "status": "ready"
+            },
+            {
+              "no": 21,
+              "title": "人民解放战争的胜利",
+              "id": "q8s-u7-l21",
+              "status": "ready"
+            },
+            {
+              "no": null,
+              "title": "活动课：探寻红色文化的历史基因",
+              "id": "q8s-activity",
+              "status": "ready"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t8b",
+      "name": "八年级下册",
+      "version": "统编版(2025)",
+      "units": [
+        {
+          "name": "第一单元 中华人民共和国成立和社会主义制度的建立",
+          "lessons": [
+            {
+              "no": 1,
+              "title": "中华人民共和国成立",
+              "id": "q8x-u1-l01",
+              "status": "ready"
+            },
+            {
+              "no": 2,
+              "title": "巩固人民民主政权",
+              "id": "q8x-u1-l02",
+              "status": "ready"
+            },
+            {
+              "no": 3,
+              "title": "社会主义制度建立",
+              "id": "q8x-u1-l03",
+              "status": "ready"
+            },
+            {
+              "no": 4,
+              "title": "独立自主的和平外交",
+              "id": "q8x-u1-l04",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第二单元 社会主义建设道路的探索",
+          "lessons": [
+            {
+              "no": 5,
+              "title": "艰辛探索与曲折发展",
+              "id": "q8x-u2-l05",
+              "status": "ready"
+            },
+            {
+              "no": 6,
+              "title": "社会主义建设的巨大成就和先锋模范",
+              "id": "q8x-u2-l06",
+              "status": "ready"
+            },
+            {
+              "no": 7,
+              "title": "国防现代化起步和外交工作新突破",
+              "id": "q8x-u2-l07",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第三单元 改革开放与中国特色社会主义的开创",
+          "lessons": [
+            {
+              "no": 8,
+              "title": "伟大的历史转折",
+              "id": "q8x-u3-l08",
+              "status": "ready"
+            },
+            {
+              "no": 9,
+              "title": "改革开放的起步",
+              "id": "q8x-u3-l09",
+              "status": "ready"
+            },
+            {
+              "no": 10,
+              "title": "改革开放和社会主义现代化建设的全面展开",
+              "id": "q8x-u3-l10",
+              "status": "ready"
+            },
+            {
+              "no": 11,
+              "title": "社会主义初级阶段基本路线",
+              "id": "q8x-u3-l11",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第四单元 中国特色社会主义迈向21世纪",
+          "lessons": [
+            {
+              "no": 12,
+              "title": "加快改革开放和社会主义现代化建设步伐",
+              "id": "q8x-u3-l12",
+              "status": "ready"
+            },
+            {
+              "no": 13,
+              "title": "中国特色社会主义事业取得新成就",
+              "id": "q8x-u4-l13",
+              "status": "ready"
+            },
+            {
+              "no": 14,
+              "title": "国防和外交工作新局面",
+              "id": "q8x-u4-l14",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第五单元 全面建设小康社会",
+          "lessons": [
+            {
+              "no": 15,
+              "title": "开始全面建设小康社会",
+              "id": "q8x-u5-l15",
+              "status": "ready"
+            },
+            {
+              "no": 16,
+              "title": "夺取全面建设小康社会新胜利",
+              "id": "q8x-u5-l16",
+              "status": "ready"
+            },
+            {
+              "no": 17,
+              "title": "推进国防和军队现代化建设",
+              "id": "q8x-u5-l17",
+              "status": "ready"
+            }
+          ]
+        },
+        {
+          "name": "第六单元 中国特色社会主义进入新时代",
+          "lessons": [
+            {
+              "no": 18,
+              "title": "擘画中国梦宏伟蓝图",
+              "id": "q8x-u6-l18",
+              "status": "pending",
+              "tag": "审校中"
+            },
+            {
+              "no": 19,
+              "title": "（课题待与教材原文核对）",
+              "id": "q8x-u6-l19",
+              "status": "pending",
+              "tag": "审校中"
+            },
+            {
+              "no": 20,
+              "title": "（课题待与教材原文核对）",
+              "id": "q8x-u6-l20",
+              "status": "pending",
+              "tag": "审校中"
+            }
+          ]
+        },
+        {
+          "name": "第七单元 全面建设社会主义现代化国家",
+          "lessons": [
+            {
+              "no": 21,
+              "title": "（课题待与教材原文核对）",
+              "id": "q8x-u7-l21",
+              "status": "pending",
+              "tag": "审校中"
+            },
+            {
+              "no": 22,
+              "title": "（课题待与教材原文核对）",
+              "id": "q8x-u7-l22",
+              "status": "pending",
+              "tag": "审校中"
+            },
+            {
+              "no": 23,
+              "title": "（课题待与教材原文核对）",
+              "id": "q8x-u7-l23",
+              "status": "pending",
+              "tag": "审校中"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "topic",
+      "name": "专题复习",
+      "version": "跨册整合",
+      "units": [
+        {
+          "name": "中考专题 · 疆域演变串讲",
+          "lessons": [
+            {
+              "no": null,
+              "title": "两千年疆域：从秦到清",
+              "id": "topic-atlas-zhongkao",
+              "status": "ready",
+              "tag": "中考"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t9a",
+      "name": "九年级上册（世界史）",
+      "version": "统编版(2026)",
+      "units": [
+        {
+          "name": "范围决策：世界史不做疆域课件，仅提供中西对照时间轴（规划 §2.3）",
+          "lessons": [
+            {
+              "no": null,
+              "title": "古代亚非文明 → 一战前（22 课，略）",
+              "id": null,
+              "status": "pending",
+              "tag": "不做疆域课件 · 用对照轴替代"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t9b",
+      "name": "九年级下册（世界史）",
+      "version": "统编版(2026)",
+      "units": [
+        {
+          "name": "范围决策：同九年级上册，仅中西对照时间轴",
+          "lessons": [
+            {
+              "no": null,
+              "title": "一战 → 当代世界（20 课，略）",
+              "id": null,
+              "status": "pending",
+              "tag": "不做疆域课件 · 用对照轴替代"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

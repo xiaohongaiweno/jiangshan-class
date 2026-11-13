@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中西对照时间轴 | 江山课堂</title>
+<meta name="description" content="九年级历史复习用中西对照时间轴：同一世纪里中国朝代更替与世界史大事并列对照，可跳到对应年代在历史地图上查看疆域。">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+<link rel="stylesheet" href="css/compare.css">
+</head>
+<body>
+<header id="topbar">
+  <div class="brand">
+    <a class="brand-link" href="index.html">江山课堂</a>
+    <span class="brand-sep">·</span>
+    <strong>中西对照时间轴</strong>
+    <span class="brand-badge">九年级复习</span>
+  </div>
+  <div class="topbar-actions">
+    <a class="ghost-btn" href="bank.html">题池</a>
+    <button id="btn-print" class="ghost-btn">打印复习单</button>
+  </div>
+</header>
+
+<main id="layout">
+  <section id="board">
+    <div id="toolbar">
+      <label class="jump">
+        <span>跳到年代</span>
+        <input id="year-input" type="text" placeholder="如 -221 或 前221" />
+        <button id="btn-jump" class="ghost-btn small">定位</button>
+      </label>
+      <label class="jump">
+        <span>检索</span>
+        <input id="kw-input" type="search" placeholder="事件 / 地区关键词" />
+      </label>
+      <div id="cats" class="cats" role="group" aria-label="事件分类"></div>
+    </div>
+
+    <div id="axis-wrap">
+      <div id="strip" class="strip" aria-label="世纪对照轴"></div>
+    </div>
+    <p class="legend">
+      上栏为中国朝代（灰段跨世纪延续），下栏为世界史节点；点击任一世纪查看该时期中西双方详情。
+      疆域图为示意性近似边界，仅供教学对照。
+    </p>
+  </section>
+
+  <aside id="detail" aria-live="polite">
+    <p class="detail-empty">正在载入对照数据…</p>
+  </aside>
+</main>
+
+<script src="js/compare.js"></script>
+</body>
+</html>

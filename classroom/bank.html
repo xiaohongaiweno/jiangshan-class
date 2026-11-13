@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>舆图寻址 · 课本题池 | 江山课堂</title>
+<meta name="description" content="按统编版初中历史教材逐课组织的舆图寻址题池：顺序练习、随机抽题、限时挑战、错题重做，每题可一键回到历史地图回看史实。">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+<link rel="stylesheet" href="css/bank.css">
+</head>
+<body>
+<header id="topbar">
+  <div class="brand">
+    <a class="brand-link" href="index.html">江山课堂</a>
+    <span class="brand-sep">·</span>
+    <strong>舆图寻址题池</strong>
+    <span class="brand-badge">课本题库</span>
+  </div>
+  <div class="topbar-actions">
+    <a class="ghost-btn" href="compare.html">中西对照</a>
+    <button id="btn-map-toggle" class="ghost-btn active" title="显示/隐藏地图回看">地图回看</button>
+    <button id="btn-reset" class="ghost-btn" title="清空本机答题记录">清空记录</button>
+  </div>
+</header>
+
+<div id="layout">
+  <aside id="sidebar">
+    <div class="side-block">
+      <h2>选题范围</h2>
+      <label class="field">
+        <span>册</span>
+        <select id="f-book"></select>
+      </label>
+      <label class="field">
+        <span>单元</span>
+        <select id="f-unit"></select>
+      </label>
+      <label class="field">
+        <span>课</span>
+        <select id="f-lesson"></select>
+      </label>
+      <label class="field">
+        <span>检索</span>
+        <input id="f-kw" type="search" placeholder="题干 / 解析关键词" />
+      </label>
+      <label class="check">
+        <input id="f-place" type="checkbox" />
+        <span>只看可定位到地名的题</span>
+      </label>
+      <p id="pool-info" class="pool-info">正在载入题库…</p>
+    </div>
+
+    <div class="side-block">
+      <h2>练习模式</h2>
+      <label class="field">
+        <span>模式</span>
+        <select id="f-mode">
+          <option value="practice">顺序练习</option>
+          <option value="random10">随机 10 题</option>
+          <option value="random20">随机 20 题</option>
+          <option value="timed">限时挑战（每题 30 秒）</option>
+          <option value="wrong">错题重做</option>
+        </select>
+      </label>
+      <button id="btn-start" class="primary-btn">开始练习</button>
+    </div>
+
+    <div class="side-block">
+      <h2>本机记录</h2>
+      <dl id="stats" class="stats"></dl>
+      <div class="wrong-head">
+        <h3>错题本 <span id="wrong-count">0</span></h3>
+        <button id="btn-wrong-clear" class="text-btn">清空</button>
+      </div>
+      <ul id="wrong-list" class="wrong-list"></ul>
+      <button id="btn-export" class="ghost-btn small">导出错题 JSON</button>
+    </div>
+  </aside>
+
+  <main id="stage">
+    <section id="quiz-card" class="card">
+      <div id="quiz-meta" class="q-meta">选择题池范围后点击「开始练习」</div>
+      <div id="quiz-progress" class="progress"><i></i></div>
+      <p id="quiz-stem" class="q-stem">题库加载中…</p>
+      <div id="quiz-opts" class="q-opts"></div>
+      <div id="quiz-explain" class="q-explain" hidden></div>
+      <div class="q-actions">
+        <button id="btn-prev" class="ghost-btn">上一题</button>
+        <button id="btn-next" class="ghost-btn">下一题</button>
+        <span id="quiz-timer" class="timer" hidden></span>
+      </div>
+    </section>
+
+    <section id="report" class="card" hidden>
+      <h2>本轮结果</h2>
+      <p id="report-summary" class="report-summary"></p>
+      <ul id="report-list" class="report-list"></ul>
+      <div class="q-actions">
+        <button id="btn-redo-wrong" class="primary-btn">重做本轮错题</button>
+        <button id="btn-again" class="ghost-btn">再来一轮</button>
+      </div>
+    </section>
+
+    <section id="map-panel" class="map-panel">
+      <div class="map-head">
+        <strong>地图回看</strong>
+        <a id="map-open" class="text-btn" href="#" target="_blank" rel="noopener">新窗口打开</a>
+      </div>
+      <iframe id="map-frame" title="历史地图回看" loading="lazy"></iframe>
+      <p id="map-hint" class="map-hint">答完题或点击「地图回看」时，这里会定位到题目对应的史实地点。</p>
+    </section>
+  </main>
+</div>
+
+<script src="js/bankcore.js"></script>
+<script src="js/bank.js"></script>
+</body>
+</html>

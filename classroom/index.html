@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>江山课堂 · K12 历史教学课件</title>
+<meta name="description" content="基于「江山时序」历史地图引擎的初中历史教学课件播放器，与统编版教材逐课对应。">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+<link rel="stylesheet" href="css/player.css">
+</head>
+<body>
+<header id="topbar">
+  <div class="brand">
+    <strong>江山课堂</strong>
+    <span class="brand-badge">K12 教学课件</span>
+  </div>
+  <div class="topbar-actions">
+    <a class="ghost-btn" href="compare.html" title="九年级中西对照时间轴">中西对照</a>
+    <a class="ghost-btn" href="bank.html" title="舆图寻址课本题池">题池</a>
+    <button id="btn-tool" class="ghost-btn" title="学史方法工具箱">工具箱</button>
+    <button id="btn-student" class="ghost-btn" title="复习模式">复习模式</button>
+    <button id="btn-font" class="ghost-btn" title="调整字号">A±</button>
+    <button id="btn-cinema" class="ghost-btn" title="投屏模式（全屏）">投屏</button>
+    <button id="btn-custom" class="ghost-btn" title="自定义模式">自定义</button>
+  </div>
+</header>
+
+<div id="layout">
+  <aside id="sidebar">
+    <div class="sidebar-head">
+      <h2>教材目录</h2>
+      <p class="sidebar-note">统编版滚动新教材 · 逐课对应</p>
+    </div>
+    <nav id="lesson-tree" aria-label="教材目录"></nav>
+    <div id="explore-panel" class="explore-panel" hidden>
+      <h3>课后探索</h3>
+      <ul id="explore-list"></ul>
+    </div>
+  </aside>
+
+  <main id="stage">
+    <div id="welcome" class="welcome">
+      <h1>江山课堂</h1>
+      <p>基于「江山时序」两千四百年历史舆图的初中历史教学课件。</p>
+      <p class="welcome-hint">从<span class="only-wide">左侧</span><span class="only-narrow">上方</span>教材目录选择一课开始上课。课件与统编版教材逐课对应。</p>
+      <p class="welcome-hint"><a href="login.html">→ 账号登录 / 注册（课件题池无需登录，直接使用）</a></p>
+      <p class="welcome-hint"><a href="bank.html">→ 打开「舆图寻址题池」：688 道课内题，可随机抽题、限时挑战、错题重做</a></p>
+      <div class="welcome-feats">
+        <div><strong>按幕推进</strong><span>地图定格 · 人物行迹 · 时间轴演进</span></div>
+        <div><strong>课堂快测</strong><span>每课内嵌考点快测与讲解回跳</span></div>
+        <div><strong>读地图</strong><span>对标新课标《如何阅读历史地图》</span></div>
+      </div>
+    </div>
+
+    <div id="player" hidden>
+      <div id="lesson-head">
+        <div class="lesson-meta">
+          <span id="lesson-crumb" class="lesson-crumb"></span>
+          <h2 id="lesson-title"></h2>
+        </div>
+        <div class="lesson-nav">
+          <button id="btn-replay" class="ghost-btn" title="回放本幕">回放本幕</button>
+          <button id="btn-prev" class="nav-btn" title="上一幕 (← / PageUp)">‹</button>
+          <button id="btn-next" class="nav-btn nav-btn-primary" title="下一幕 (→ / PageDown / 空格)">›</button>
+        </div>
+      </div>
+
+      <div id="map-frame-wrap">
+        <iframe id="map-frame" title="江山时序历史地图" loading="lazy"></iframe>
+        <div class="map-hint">地图首次交互需点击一次（防滚动遮罩）；教师可在此平移缩放。</div>
+      </div>
+
+      <ol id="scene-bar" aria-label="课件分幕"></ol>
+
+      <section id="narration">
+        <div class="narration-head">
+          <span id="scene-index" class="scene-index"></span>
+          <h3 id="scene-title"></h3>
+        </div>
+        <p id="scene-narration"></p>
+        <ul id="scene-board" class="scene-board"></ul>
+        <div id="quiz-mount"></div>
+        <div id="activity-mount"></div>
+      </section>
+
+      <div id="tool-panel" class="tool-panel" hidden>
+        <div class="tool-head">
+          <h3>学史方法工具箱 · 纪年换算器</h3>
+          <button id="btn-tool-close" class="ghost-btn">关闭</button>
+        </div>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <h4>年号纪年 → 公元年</h4>
+            <label>年号起始年（公元）<input id="tool-start" type="number" value="627" /></label>
+            <label>第几年（如「十年」填 10）<input id="tool-n" type="number" value="10" min="1" /></label>
+            <button id="tool-calc1" class="ghost-btn">换算</button>
+            <p id="tool-out1" class="tool-out"></p>
+          </div>
+          <div class="tool-card">
+            <h4>公元年 → 世纪</h4>
+            <label>年份（公元前填负数，如 -221）<input id="tool-year" type="number" value="-221" /></label>
+            <button id="tool-calc2" class="ghost-btn">换算</button>
+            <p id="tool-out2" class="tool-out"></p>
+          </div>
+          <div class="tool-card">
+            <h4>跨年计算（含公元前，无公元 0 年）</h4>
+            <label>起始年<input id="tool-a" type="number" value="-202" /></label>
+            <label>结束年<input id="tool-b" type="number" value="9" /></label>
+            <button id="tool-calc3" class="ghost-btn">计算年数</button>
+            <p id="tool-out3" class="tool-out"></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="custom-panel" hidden>
+        <h3>自定义模式</h3>
+        <p class="custom-note">勾选保留的场景、编辑旁白；修改自动保存到本机（localStorage），可导出 JSON。</p>
+        <div class="custom-actions">
+          <button id="btn-custom-export" class="ghost-btn">导出 JSON</button>
+          <button id="btn-custom-reset" class="ghost-btn">恢复官方剧本</button>
+        </div>
+        <div id="custom-scenes"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/quiz.js"></script>
+<script src="js/player.js"></script>
+<script>
+/* PWA：课堂课件离线缓存（https 或 localhost 下注册，失败静默） */
+if ("serviceWorker" in navigator && (location.protocol === "https:" || /localhost|127\.0\.0\.1/.test(location.hostname))) {
+  navigator.serviceWorker.register("../sw.js").catch(function () {});
+}
+</script>
+</body>
+</html>

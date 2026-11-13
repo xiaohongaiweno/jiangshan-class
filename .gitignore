@@ -1,0 +1,21 @@
+# macOS / IDE
+.DS_Store
+.idea/
+
+# 本地构建产物与缓存
+node_modules/
+dist/
+tmp/
+
+# Wrangler 本地状态（含本地 D1 数据库快照）
+.wrangler/
+
+# 本地开发数据库（含用户数据，绝不入库）
+server/data/
+
+# AI / 工具链产物
+.planning/
+.rankup/
+.trae-html-share-packages/
+.ph-assets/
+.icon.svg

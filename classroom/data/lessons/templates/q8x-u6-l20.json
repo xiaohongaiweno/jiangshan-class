@@ -1,0 +1,72 @@
+{
+  "_note": "【填写说明】1) 核对 title 为教材课题原文；2) 填写各幕 narration/board 与 link（锚点格式见同目录 README）；3) 快测按教材补 2–3 题；4) 上线：删除本 _note 字段 → manifest.json 中该课 status 改 ready → 运行 npm run validate。",
+  "id": "q8x-u6-l20",
+  "textbook": "统编版(2025)",
+  "grade": "八年级下册",
+  "unit": "第六单元 中国特色社会主义进入新时代",
+  "lesson": 20,
+  "title": "（课题：请按教材原文填写）",
+  "duration": 40,
+  "scenes": [
+    {
+      "type": "map",
+      "title": "（请按教材填写：导入场景标题）",
+      "narration": "（请按教材填写：旁白，1–2 句，含时间与事件）",
+      "board": [
+        "（板书要点 1）",
+        "（板书要点 2）"
+      ],
+      "link": {
+        "year": 2012,
+        "zoom": 1.2
+      }
+    },
+    {
+      "type": "map",
+      "title": "（请按教材填写：第二场景标题）",
+      "narration": "（请按教材填写）",
+      "board": [
+        "（板书要点）"
+      ],
+      "link": {
+        "year": 2012,
+        "place": "（地名，如 北京）",
+        "zoom": 2,
+        "lock": 1
+      }
+    },
+    {
+      "type": "timeline",
+      "title": "（请按教材填写：时间轴幕标题）",
+      "narration": "（请按教材填写）",
+      "board": [
+        "（板书要点）"
+      ],
+      "from": 2012,
+      "to": 2022
+    },
+    {
+      "type": "quiz",
+      "title": "课堂快测",
+      "items": [
+        {
+          "q": "（请按教材填写题目）",
+          "options": [
+            "选项 A",
+            "选项 B",
+            "选项 C",
+            "选项 D"
+          ],
+          "answer": 0,
+          "explain": "（请按教材填写解析）"
+        }
+      ]
+    }
+  ],
+  "explore": [
+    {
+      "title": "（课后探索标题）",
+      "url": "../index.html?year=2012"
+    }
+  ]
+}
