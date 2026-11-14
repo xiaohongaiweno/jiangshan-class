@@ -10,7 +10,7 @@
 
 [Unit]
 Description=Jiangshan Classroom (Node + SQLite)
-Documentation=https://github.com/DeanChensj/jiangshan-map
+Documentation=https://github.com/xiaohongaiweno/jiangshan-class
 After=network-online.target
 Wants=network-online.target
 
