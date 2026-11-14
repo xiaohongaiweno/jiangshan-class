@@ -137,6 +137,7 @@
       const res = await fetch(`data/lessons/${id}.json`);
       if (!res.ok) throw new Error(res.status);
       const lesson = await res.json();
+      if (window.jsTrack) jsTrack("lesson_open", id);
       showLesson(lesson);
       document.querySelectorAll(".lesson-item.active").forEach((n) => n.classList.remove("active"));
       const target = itemEl || document.querySelector(`.lesson-item[data-lesson-id="${id}"]`);

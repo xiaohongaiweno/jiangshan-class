@@ -170,14 +170,67 @@ route("GET", /^\/api\/admin\/stats$/, async (c) => {
   const db = c.env.DB;
   const dayStart = new Date(); dayStart.setHours(0, 0, 0, 0);
   const users = await db.prepare(
-    "SELECT username, name, email, created_at FROM users ORDER BY created_at DESC LIMIT 1000"
+    "SELECT username, name, email, created_at, last_login_at, login_count FROM users ORDER BY created_at DESC LIMIT 1000"
   ).all();
+  const weekAgo = now() - 7 * 86400000;
   const totals = {
     users: users.results.length,
     today: users.results.filter((u) => u.created_at >= dayStart.getTime()).length,
-    sessions: (await db.prepare("SELECT COUNT(*) AS n FROM sessions").first()).n
+    sessions: (await db.prepare("SELECT COUNT(*) AS n FROM sessions").first()).n,
+    visitors7d: (await db.prepare(
+      "SELECT COUNT(DISTINCT COALESCE(user_id, visitor_id)) AS n FROM events WHERE created_at >= ?"
+    ).bind(weekAgo).first()).n,
+    usersActive7d: (await db.prepare(
+      "SELECT COUNT(DISTINCT user_id) AS n FROM events WHERE created_at >= ? AND user_id IS NOT NULL"
+    ).bind(weekAgo).first()).n,
+    pageviews7d: (await db.prepare(
+      "SELECT COUNT(*) AS n FROM events WHERE event = 'pageview' AND created_at >= ?"
+    ).bind(weekAgo).first()).n,
+    pageviewsToday: (await db.prepare(
+      "SELECT COUNT(*) AS n FROM events WHERE event = 'pageview' AND created_at >= ?"
+    ).bind(dayStart.getTime()).first()).n
   };
-  return json({ totals, users: users.results });
+  const daily = (await db.prepare(
+    "SELECT created_at/86400000 AS d, COUNT(*) AS n FROM events WHERE event = 'pageview' AND created_at >= ? GROUP BY d ORDER BY d"
+  ).bind(now() - 14 * 86400000).all()).results.map((r) => ({
+    date: new Date(r.d * 86400000).toISOString().slice(0, 10), n: r.n
+  }));
+  const topLessons = (await db.prepare(
+    "SELECT detail, COUNT(*) AS n FROM events WHERE event = 'lesson_open' AND created_at >= ? AND detail GROUP BY detail ORDER BY n DESC LIMIT 8"
+  ).bind(weekAgo).all()).results;
+  const recent = (await db.prepare(
+    `SELECT e.event, e.detail, e.created_at, u.username
+       FROM events e LEFT JOIN users u ON u.id = e.user_id
+      ORDER BY e.created_at DESC LIMIT 30`
+  ).all()).results;
+  return json({ totals, users: users.results, daily, topLessons, recent });
+});
+
+/* --- 使用统计上报（匿名/登录皆可；只记事件与随机访客 id，不记 IP 与指纹） --- */
+const TRACK_EVENTS = new Set(["pageview", "lesson_open", "quiz_answer", "person_open"]);
+route("POST", /^\/api\/track$/, async (c) => {
+  const body = await readBody(c.request);
+  const event = str(body.event, 30);
+  if (!TRACK_EVENTS.has(event)) err(400, "未知事件");
+  const detail = str(body.detail, 120) || null;
+  const db = c.env.DB;
+  const cookies = parseCookies(c.request);
+  let userId = null;
+  if (cookies.sid) {
+    const s = await db.prepare("SELECT user_id, expires_at FROM sessions WHERE token = ?").bind(cookies.sid).first();
+    if (s && s.expires_at > now()) userId = s.user_id;
+  }
+  let vid = cookies.vid || null;
+  const headers = {};
+  if (!vid) {
+    vid = uid("v");
+    headers["Set-Cookie"] =
+      `vid=${vid}; Path=/; Max-Age=31536000; HttpOnly; SameSite=Lax` + (c.secure ? "; Secure" : "");
+  }
+  await db.prepare(
+    "INSERT INTO events (user_id, visitor_id, event, detail, created_at) VALUES (?, ?, ?, ?, ?)"
+  ).bind(userId, vid, event, detail, now()).run();
+  return json({ ok: true }, 200, headers);
 });
 
 /* --- 注册 / 登录 --- */
@@ -198,8 +251,8 @@ route("POST", /^\/api\/auth\/register$/, async (c) => {
   }
   const { hash, salt } = await hashPassword(password);
   const id = uid("u");
-  await db.prepare(`INSERT INTO users (id, username, name, email, pass_hash, pass_salt, created_at)
-              VALUES (?, ?, ?, ?, ?, ?, ?)`).bind(id, username, name, email, hash, salt, now()).run();
+  await db.prepare(`INSERT INTO users (id, username, name, email, pass_hash, pass_salt, created_at, last_login_at, login_count)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)`).bind(id, username, name, email, hash, salt, now(), now()).run();
   const token = await createSession(db, id);
   return json({ user: { id, username, name, email } },
     200, { "Set-Cookie": sessionCookie(token, SESSION_TTL / 1000, c.secure) });
@@ -213,6 +266,8 @@ route("POST", /^\/api\/auth\/login$/, async (c) => {
   if (!row || !(await verifyPassword(password, row.pass_salt, row.pass_hash))) {
     err(401, "用户名或密码不正确");
   }
+  await c.env.DB.prepare("UPDATE users SET last_login_at = ?, login_count = login_count + 1 WHERE id = ?")
+    .bind(now(), row.id).run();
   const token = await createSession(c.env.DB, row.id);
   const user = { id: row.id, username: row.username, name: row.name, email: row.email || "" };
   return json({ user }, 200, { "Set-Cookie": sessionCookie(token, SESSION_TTL / 1000, c.secure) });

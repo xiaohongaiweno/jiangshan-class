@@ -50,10 +50,30 @@ db.exec(`
     expires_at INTEGER NOT NULL
   );
 
+  CREATE TABLE IF NOT EXISTS events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id TEXT,              -- 登录用户 id（未登录为 NULL）
+    visitor_id TEXT,           -- 匿名访客 cookie（随机 id，不采集指纹/IP）
+    event TEXT NOT NULL,       -- pageview / lesson_open / quiz_answer
+    detail TEXT,               -- 页面路径 / 课件 id / 答题正误
+    created_at INTEGER NOT NULL
+  );
+  CREATE INDEX IF NOT EXISTS idx_events_created ON events(created_at);
+  CREATE INDEX IF NOT EXISTS idx_events_user ON events(user_id);
+  CREATE INDEX IF NOT EXISTS idx_events_visitor ON events(visitor_id);
+
   DROP TABLE IF EXISTS classes;
   DROP TABLE IF EXISTS tasks;
   DROP TABLE IF EXISTS submissions;
 `);
+
+/* 存量库补列（新库由上方 CREATE TABLE 建立） */
+for (const ddl of [
+  "ALTER TABLE users ADD COLUMN last_login_at INTEGER",
+  "ALTER TABLE users ADD COLUMN login_count INTEGER DEFAULT 0"
+]) {
+  try { db.exec(ddl); } catch (e) { /* 列已存在则忽略 */ }
+}
 
 /* ---------------- 工具 ---------------- */
 const uid = (p) => p + crypto.randomBytes(9).toString("hex");
@@ -184,14 +204,69 @@ route("GET", /^\/api\/admin\/stats$/, (req, res) => {
   }
   const dayStart = new Date(); dayStart.setHours(0, 0, 0, 0);
   const users = db.prepare(
-    "SELECT username, name, email, created_at FROM users ORDER BY created_at DESC LIMIT 1000"
+    "SELECT username, name, email, created_at, last_login_at, login_count FROM users ORDER BY created_at DESC LIMIT 1000"
   ).all();
+  const weekAgo = now() - 7 * 86400000;
   const totals = {
     users: users.length,
     today: users.filter((u) => u.created_at >= dayStart.getTime()).length,
-    sessions: db.prepare("SELECT COUNT(*) AS n FROM sessions").get().n
+    sessions: db.prepare("SELECT COUNT(*) AS n FROM sessions").get().n,
+    visitors7d: db.prepare(
+      "SELECT COUNT(DISTINCT COALESCE(user_id, visitor_id)) AS n FROM events WHERE created_at >= ?"
+    ).get(weekAgo).n,
+    usersActive7d: db.prepare(
+      "SELECT COUNT(DISTINCT user_id) AS n FROM events WHERE created_at >= ? AND user_id IS NOT NULL"
+    ).get(weekAgo).n,
+    pageviews7d: db.prepare(
+      "SELECT COUNT(*) AS n FROM events WHERE event = 'pageview' AND created_at >= ?"
+    ).get(weekAgo).n,
+    pageviewsToday: db.prepare(
+      "SELECT COUNT(*) AS n FROM events WHERE event = 'pageview' AND created_at >= ?"
+    ).get(dayStart.getTime()).n
   };
-  sendJson(res, 200, { totals, users });
+  /* 近 14 天每日浏览（d = UTC 天序号，JS 侧转日期） */
+  const daily = db.prepare(
+    "SELECT created_at/86400000 AS d, COUNT(*) AS n FROM events WHERE event = 'pageview' AND created_at >= ? GROUP BY d ORDER BY d"
+  ).all(now() - 14 * 86400000).map((r) => ({
+    date: new Date(r.d * 86400000).toISOString().slice(0, 10), n: r.n
+  }));
+  const topLessons = db.prepare(
+    "SELECT detail, COUNT(*) AS n FROM events WHERE event = 'lesson_open' AND created_at >= ? AND detail GROUP BY detail ORDER BY n DESC LIMIT 8"
+  ).all(weekAgo);
+  const recent = db.prepare(
+    `SELECT e.event, e.detail, e.created_at, u.username
+       FROM events e LEFT JOIN users u ON u.id = e.user_id
+      ORDER BY e.created_at DESC LIMIT 30`
+  ).all();
+  sendJson(res, 200, { totals, users, daily, topLessons, recent });
+});
+
+/* --- 使用统计上报（匿名/登录皆可；只记事件与随机访客 id，不记 IP 与指纹） --- */
+const TRACK_EVENTS = new Set(["pageview", "lesson_open", "quiz_answer", "person_open"]);
+route("POST", /^\/api\/track$/, (req, res) => {
+  readBody(req).then((body) => {
+    const event = str(body.event, 30);
+    if (!TRACK_EVENTS.has(event)) return sendError(res, 400, "未知事件");
+    const detail = str(body.detail, 120) || null;
+    const cookies = parseCookies(req);
+    let userId = null;
+    if (cookies.sid) {
+      const s = db.prepare("SELECT user_id, expires_at FROM sessions WHERE token = ?").get(cookies.sid);
+      if (s && s.expires_at > now()) userId = s.user_id;
+    }
+    let vid = cookies.vid || null;
+    const headers = {};
+    if (!vid) {
+      vid = uid("v");
+      const parts = [`vid=${vid}`, "Path=/", "Max-Age=31536000", "HttpOnly", "SameSite=Lax"];
+      if (COOKIE_SECURE) parts.push("Secure");
+      headers["Set-Cookie"] = parts.join("; ");
+    }
+    db.prepare(
+      "INSERT INTO events (user_id, visitor_id, event, detail, created_at) VALUES (?, ?, ?, ?, ?)"
+    ).run(userId, vid, event, detail, now());
+    sendJson(res, 200, { ok: true }, headers);
+  }).catch(() => sendError(res, 400, "请求体无效"));
 });
 
 /* --- 注册 / 登录 --- */
@@ -211,8 +286,8 @@ route("POST", /^\/api\/auth\/register$/, async (req, res) => {
   }
   const { hash, salt } = hashPassword(password);
   const id = uid("u");
-  db.prepare(`INSERT INTO users (id, username, name, email, pass_hash, pass_salt, created_at)
-              VALUES (?, ?, ?, ?, ?, ?, ?)`).run(id, username, name, email, hash, salt, now());
+  db.prepare(`INSERT INTO users (id, username, name, email, pass_hash, pass_salt, created_at, last_login_at, login_count)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)`).run(id, username, name, email, hash, salt, now(), now());
   const token = createSession(id);
   sendJson(res, 200, { user: { id, username, name, email } },
     { "Set-Cookie": sessionCookie(token, SESSION_TTL / 1000) });
@@ -226,6 +301,7 @@ route("POST", /^\/api\/auth\/login$/, async (req, res) => {
   if (!row || !verifyPassword(password, row.pass_salt, row.pass_hash)) {
     return sendError(res, 401, "用户名或密码不正确");
   }
+  db.prepare("UPDATE users SET last_login_at = ?, login_count = login_count + 1 WHERE id = ?").run(now(), row.id);
   const token = createSession(row.id);
   const user = { id: row.id, username: row.username, name: row.name, email: row.email || "" };
   sendJson(res, 200, { user }, { "Set-Cookie": sessionCookie(token, SESSION_TTL / 1000) });

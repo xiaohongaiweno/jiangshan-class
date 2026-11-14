@@ -40,14 +40,30 @@
   <div id="dash" hidden>
     <h1>使用情况 · 总量</h1>
     <div class="cards" id="cards"></div>
-    <div class="card">
+    <h1 style="font-size:16px">近 14 天页面浏览</h1>
+    <div class="card" id="daily" style="margin-bottom:20px"></div>
+    <div class="card" style="margin-bottom:20px">
       <h1 style="font-size:16px;margin-top:0">注册用户（新 → 旧）</h1>
       <table>
-        <thead><tr><th>姓名</th><th>用户名</th><th>邮箱</th><th>注册时间</th></tr></thead>
+        <thead><tr><th>姓名</th><th>用户名</th><th>邮箱</th><th>注册时间</th><th>最近登录</th><th>登录次数</th></tr></thead>
         <tbody id="users"></tbody>
       </table>
     </div>
-    <footer>数据来自 D1 聚合，不含答题明细；口令可在 Cloudflare Pages 项目环境变量 ADMIN_TOKEN 中修改。</footer>
+    <div class="card" style="margin-bottom:20px">
+      <h1 style="font-size:16px;margin-top:0">近 7 天热门课件</h1>
+      <table>
+        <thead><tr><th>课件</th><th>打开次数</th></tr></thead>
+        <tbody id="lessons"></tbody>
+      </table>
+    </div>
+    <div class="card" style="margin-bottom:20px">
+      <h1 style="font-size:16px;margin-top:0">最近行为（≤30 条）</h1>
+      <table>
+        <thead><tr><th>时间</th><th>事件</th><th>内容</th><th>用户</th></tr></thead>
+        <tbody id="recent"></tbody>
+      </table>
+    </div>
+    <footer>数据来自 D1 聚合：匿名访客仅以随机 cookie 计数，不记录 IP 与答题明细；口令可在 Cloudflare Pages 项目环境变量 ADMIN_TOKEN 中修改。</footer>
   </div>
 </div>
 <script>
@@ -64,19 +80,53 @@
     return res.json();
   }
 
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g,
+      (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
   function render(d) {
     const t = d.totals;
     const cards = [
-      ["总用户", t.users], ["今日新增", t.today], ["活跃会话", t.sessions]
+      ["总用户", t.users], ["今日新增", t.today], ["活跃会话", t.sessions],
+      ["近7日访客", t.visitors7d ?? "—"], ["近7日浏览", t.pageviews7d ?? "—"],
+      ["今日浏览", t.pageviewsToday ?? "—"], ["近7日登录活跃", t.usersActive7d ?? "—"]
     ];
     $("#cards").innerHTML = cards.map(([k, v]) =>
-      `<div class="stat"><b>${v}</b><span>${k}</span></div>`).join("");
+      `<div class="stat"><b>${esc(v)}</b><span>${k}</span></div>`).join("");
+
+    /* 近 14 天浏览条形图 */
+    const daily = d.daily || [];
+    const max = Math.max(1, ...daily.map((x) => x.n));
+    $("#daily").innerHTML = daily.length ? daily.map((x) => `
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;margin:3px 0">
+        <span style="width:78px;color:#6b7280">${x.date}</span>
+        <span style="flex:1;height:12px;background:#eef2f7;border-radius:6px;overflow:hidden">
+          <span style="display:block;height:100%;width:${Math.round(x.n / max * 100)}%;background:#2563eb"></span>
+        </span>
+        <b style="width:36px;text-align:right">${x.n}</b>
+      </div>`).join("") : "<p style='color:#6b7280;margin:0;font-size:13px'>暂无浏览数据</p>";
+
     $("#users").innerHTML = d.users.map((u) => `<tr>
-      <td>${u.name || ""}</td>
-      <td>${u.username || "—"}</td>
-      <td>${u.email || "—"}</td>
+      <td>${esc(u.name)}</td>
+      <td>${esc(u.username) || "—"}</td>
+      <td>${esc(u.email) || "—"}</td>
       <td>${fmt(u.created_at)}</td>
-    </tr>`).join("") || "<tr><td colspan=4>暂无用户</td></tr>";
+      <td>${u.last_login_at ? fmt(u.last_login_at) : "—"}</td>
+      <td>${u.login_count ?? 0}</td>
+    </tr>`).join("") || "<tr><td colspan=6>暂无用户</td></tr>";
+
+    const evName = { pageview: "浏览", lesson_open: "开课件", quiz_answer: "答题", person_open: "看人物" };
+    $("#lessons").innerHTML = (d.topLessons || []).map((x) =>
+      `<tr><td>${esc(x.detail)}</td><td>${x.n}</td></tr>`).join("") ||
+      "<tr><td colspan=2>近 7 天没有课件打开记录</td></tr>";
+    $("#recent").innerHTML = (d.recent || []).map((e) => `<tr>
+      <td>${fmt(e.created_at)}</td>
+      <td><span class="tag">${evName[e.event] || esc(e.event)}</span></td>
+      <td>${esc(e.detail) || "—"}</td>
+      <td>${e.username ? esc(e.username) : '<span class="tag s">匿名</span>'}</td>
+    </tr>`).join("") || "<tr><td colspan=4>暂无行为记录</td></tr>";
+
     $("#gate").hidden = true;
     $("#dash").hidden = false;
   }

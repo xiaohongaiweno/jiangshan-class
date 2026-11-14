@@ -22,3 +22,20 @@ CREATE TABLE IF NOT EXISTS sessions (
   created_at INTEGER NOT NULL,
   expires_at INTEGER NOT NULL
 );
+
+-- 使用统计（匿名访客以随机 cookie vid 计数，不记录 IP 与指纹）
+CREATE TABLE IF NOT EXISTS events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id TEXT,              -- 登录用户 id（未登录为 NULL）
+  visitor_id TEXT,           -- 匿名访客随机 id
+  event TEXT NOT NULL,       -- pageview / lesson_open / quiz_answer / person_open
+  detail TEXT,               -- 页面路径 / 课件 id / 答题正误
+  created_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_events_created ON events(created_at);
+CREATE INDEX IF NOT EXISTS idx_events_user ON events(user_id);
+CREATE INDEX IF NOT EXISTS idx_events_visitor ON events(visitor_id);
+
+-- 存量库补列（重复执行报 duplicate column 可忽略）：
+--   ALTER TABLE users ADD COLUMN last_login_at INTEGER;
+--   ALTER TABLE users ADD COLUMN login_count INTEGER DEFAULT 0;

@@ -34,6 +34,7 @@
               if (bi === item.answer) b.classList.add("correct");
             });
             if (oi !== item.answer) btn.classList.add("wrong");
+            if (window.jsTrack) jsTrack("quiz_answer", oi === item.answer ? "correct" : "wrong");
             showExplain();
           });
           buttons.push(btn);
