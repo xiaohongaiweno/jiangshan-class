@@ -30,8 +30,8 @@ jobs:
           # macOS Apple Silicon
           - os: macos-latest
             args: --mac dmg --arm64
-          # macOS Intel
-          - os: macos-13
+          # macOS Intel（macos-13 runner 已退役，在 arm64 机器上交叉打包 x64）
+          - os: macos-latest
             args: --mac dmg --x64
           # Windows x64
           - os: windows-latest
