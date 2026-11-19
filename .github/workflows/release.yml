@@ -29,12 +29,15 @@ jobs:
         include:
           # macOS Apple Silicon
           - os: macos-latest
+            name: mac-arm64
             args: --mac dmg --arm64
           # macOS Intel（macos-13 runner 已退役，在 arm64 机器上交叉打包 x64）
           - os: macos-latest
+            name: mac-x64
             args: --mac dmg --x64
           # Windows x64
           - os: windows-latest
+            name: win-x64
             args: --win nsis --x64
     runs-on: ${{ matrix.os }}
 
@@ -60,7 +63,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: desktop-${{ matrix.os }}
+          name: desktop-${{ matrix.name }}
           path: |
             desktop/dist/*.dmg
             desktop/dist/*.exe
