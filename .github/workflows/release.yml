@@ -1,0 +1,86 @@
+# 江山时序（教学版）· 桌面版发布流水线
+#
+# 触发方式：
+#   1. 推送 tag：git tag v1.0.1 && git push origin v1.0.1 → 自动构建并创建 GitHub Release
+#   2. 手动：Actions 页面 Run workflow（仅上传构建产物，不发布 Release）
+#
+# 产物：
+#   - Windows x64 NSIS 安装包（.exe）
+#   - macOS Apple Silicon（arm64）与 Intel（x64）DMG
+#
+# 说明：未配置代码签名（CSC_IDENTITY_AUTO_DISCOVERY=false），
+#       Windows 用户会看到 SmartScreen 提示、macOS 需右键 → 打开；
+#       如需签名，在此 workflow 中补充 CSC_LINK / CSC_KEY_PASSWORD 等 secrets。
+
+name: Build Desktop Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          # macOS Apple Silicon
+          - os: macos-latest
+            args: --mac dmg --arm64
+          # macOS Intel
+          - os: macos-13
+            args: --mac dmg --x64
+          # Windows x64
+          - os: windows-latest
+            args: --win nsis --x64
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --include=dev
+
+      - name: Build installer
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx electron-builder ${{ matrix.args }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-${{ matrix.os }}
+          path: |
+            desktop/dist/*.dmg
+            desktop/dist/*.exe
+          if-no-files-found: error
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            artifacts/*.dmg
+            artifacts/*.exe

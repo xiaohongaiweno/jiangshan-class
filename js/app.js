@@ -1657,6 +1657,17 @@
       if (lblLayersBtn) {
         lblLayersBtn.textContent = this.uiStr('btn_layers', '图层');
       }
+      const lblQuizBank = this._id('lbl-quiz-bank');
+      if (lblQuizBank) {
+        lblQuizBank.textContent = this.uiStr('btn_quiz_bank', '题池');
+      }
+      const actQuizBank = this._id('act-quiz-bank');
+      if (actQuizBank) {
+        actQuizBank.title =
+          this.locale === 'en'
+            ? 'Open the Map Pinpoint Quiz Bank: 688 curriculum questions, random draw, timed challenge, mistake replay'
+            : '打开「舆图寻址题池」：688 道课内题，可随机抽题、限时挑战、错题重做';
+      }
       const actLayersBtn = this._id('act-layers-menu');
       if (actLayersBtn) {
         actLayersBtn.title =

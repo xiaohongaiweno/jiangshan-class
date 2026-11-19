@@ -4,6 +4,7 @@ window.EN_LOCALE = {
     "brand_seal": "江山时序",
     "brand_sub": "Classroom Edition · Atlas of China · 403 BCE → Present",
     "btn_layers": "Layers",
+    "btn_quiz_bank": "Quiz Bank",
     "layer_grp_hist": "Historical Atlas Layers",
     "layer_grp_mod": "Terrain & Modern Reference",
     "toggle_terrain": "Terrain & Rivers",

@@ -3,6 +3,8 @@
  * 服务端以随机访客 cookie（vid）区分匿名访客，登录用户自动关联账号。 */
 (function () {
   "use strict";
+  /* 桌面版（Electron）：无服务端与统计，不上报 */
+  if (window.jiangshanDesktop && window.jiangshanDesktop.isDesktop) return;
   function send(event, detail) {
     try {
       fetch("/api/track", {

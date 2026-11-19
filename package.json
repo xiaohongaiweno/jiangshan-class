@@ -2,10 +2,13 @@
   "name": "jiangshan-map",
   "version": "1.0.0",
   "private": true,
+  "main": "desktop/main.cjs",
   "description": "江山时序（教学版）：面向初中历史课堂的交互式中国历史舆图——86 课教材同步课件、688 题题池、中西对照时间轴、单一用户账号与站长统计，支持本地/云主机/Cloudflare 部署。",
   "scripts": {
     "start": "node --no-warnings=ExperimentalWarning server/index.js",
     "server": "node --no-warnings=ExperimentalWarning server/index.js",
+    "desktop": "electron .",
+    "desktop:build": "electron-builder",
     "validate": "node classroom/validate_lessons.cjs",
     "build:answers": "node scripts/build_answers.cjs",
     "build:cf": "npm run build:answers && node scripts/cf_dist.cjs",
@@ -13,5 +16,53 @@
   },
   "engines": {
     "node": ">=22"
+  },
+  "devDependencies": {
+    "electron": "^38.8.6",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "dev.jiangshan.atlas.desktop",
+    "productName": "江山时序",
+    "directories": {
+      "output": "desktop/dist"
+    },
+    "files": [
+      "desktop/main.cjs",
+      "desktop/preload.cjs",
+      "index.html",
+      "sw.js",
+      "manifest.webmanifest",
+      "css/**/*",
+      "js/**/*",
+      "classroom/**/*",
+      "topics/**/*",
+      "assets/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.education",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "category": "Education",
+      "target": [
+        "AppImage"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "江山时序"
+    },
+    "dmg": {
+      "title": "江山时序（教学版）"
+    }
   }
 }
