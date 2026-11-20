@@ -59,10 +59,12 @@
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "shortcutName": "江山时序"
+      "shortcutName": "江山时序",
+      "artifactName": "JiangshanAtlas-Setup-${version}.exe"
     },
     "dmg": {
-      "title": "江山时序（教学版）"
+      "title": "江山时序（教学版）",
+      "artifactName": "JiangshanAtlas-${version}-${arch}.dmg"
     }
   }
 }
